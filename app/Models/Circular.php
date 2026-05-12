@@ -9,7 +9,7 @@ class Circular extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'date', 'description'];
+    protected $fillable = ['title', 'date', 'description', 'url'];
 
     public function attachments()
     {

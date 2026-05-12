@@ -45,11 +45,7 @@
                         @if(!empty($settings?->maps_iframe))
                             <div class="w-full h-[420px] lg:h-[520px]">
                                 {!! $settings->maps_iframe !!}
-                            </div>
-                        @else
-                            <div class="w-full h-[420px] lg:h-[520px] flex items-center justify-center text-slate-500">
-                                Google Maps não configurado.
-                            </div>
+                            </div>                           
                         @endif
                     </div>
                 </div>

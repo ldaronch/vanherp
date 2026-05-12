@@ -9,5 +9,5 @@ class Guideline extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'file_path', 'description'];
+    protected $fillable = ['title', 'file_path', 'url', 'description'];
 }

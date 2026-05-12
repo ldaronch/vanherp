@@ -19,7 +19,7 @@
             <thead>
                 <tr class="bg-slate-50 border-b border-slate-100">
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Título</th>
-                    <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Arquivo</th>
+                    <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Acesso</th>
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant text-right">Ações</th>
                 </tr>
             </thead>
@@ -28,10 +28,19 @@
                     <tr class="hover:bg-slate-50/50 transition-colors">
                         <td class="px-6 py-4 font-semibold text-on-surface">{{ $guideline->title }}</td>
                         <td class="px-6 py-4">
-                            <a href="{{ asset('storage/' . $guideline->file_path) }}" target="_blank" class="inline-flex items-center gap-1 text-xs font-bold text-secondary hover:underline">
-                                <span class="material-symbols-outlined text-sm">description</span>
-                                Visualizar
-                            </a>
+                            @if(!empty($guideline->url))
+                                <a href="{{ $guideline->url }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs font-bold text-secondary hover:underline">
+                                    <span class="material-symbols-outlined text-sm">link</span>
+                                    Abrir link
+                                </a>
+                            @elseif(!empty($guideline->file_path))
+                                <a href="{{ asset('storage/' . $guideline->file_path) }}" class="inline-flex items-center gap-1 text-xs font-bold text-secondary hover:underline" target="_blank" rel="noopener">
+                                    <span class="material-symbols-outlined text-sm">description</span>
+                                    Visualizar PDF
+                                </a>
+                            @else
+                                <span class="text-[10px] text-slate-300 italic">Sem PDF/Link</span>
+                            @endif
                         </td>
                         <td class="px-6 py-4 text-right space-x-2">
                             <a href="{{ route('admin.guidelines.edit', $guideline) }}" class="inline-flex items-center p-2 text-primary hover:bg-primary/10 rounded-lg">

@@ -29,6 +29,12 @@
                     <input type="date" name="date" id="date" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('date', $circular->date) }}">
                 </div>
                 <div>
+                    <label for="url" class="block text-sm font-bold text-on-surface-variant mb-2">Link (Opcional)</label>
+                    <input type="url" name="url" id="url" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('url', $circular->url) }}" placeholder="https://...">
+                    <p class="mt-1 text-[10px] text-slate-400 font-medium">Se informar um link, os anexos serão removidos.</p>
+                    @error('url') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
+                </div>
+                <div>
                     <label for="attachments" class="block text-sm font-bold text-on-surface-variant mb-2">Adicionar Novos PDFs</label>
                     <input type="file" name="attachments[]" id="attachments" accept=".pdf,application/pdf" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" multiple>
                     <p class="mt-1 text-[10px] text-slate-400 font-medium">Selecione novos arquivos PDF para adicionar à lista atual.</p>

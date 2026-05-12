@@ -23,8 +23,14 @@
                 @error('title') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
             </div>
             <div>
+                <label for="url" class="block text-sm font-bold text-on-surface-variant mb-2">Link (Opcional)</label>
+                <input type="url" name="url" id="url" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('url') }}" placeholder="https://...">
+                <p class="mt-1 text-[10px] text-slate-400 font-medium">Informe um link ou envie um PDF.</p>
+                @error('url') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
+            </div>
+            <div>
                 <label for="file_path" class="block text-sm font-bold text-on-surface-variant mb-2">Arquivo (PDF)</label>
-                <input type="file" name="file_path" id="file_path" accept=".pdf,application/pdf" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" required>
+                <input type="file" name="file_path" id="file_path" accept=".pdf,application/pdf" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
                 @error('file_path') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
             </div>
             <div>

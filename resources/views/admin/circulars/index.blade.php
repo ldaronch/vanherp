@@ -20,7 +20,7 @@
                 <tr class="bg-slate-50 border-b border-slate-100">
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Título</th>
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Data</th>
-                    <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Anexos</th>
+                    <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Acesso</th>
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant text-right">Ações</th>
                 </tr>
             </thead>
@@ -30,16 +30,23 @@
                         <td class="px-6 py-4 font-semibold text-on-surface">{{ $circular->title }}</td>
                         <td class="px-6 py-4 text-on-surface-variant">{{ $circular->date ? \Carbon\Carbon::parse($circular->date)->format('d/m/Y') : '-' }}</td>
                         <td class="px-6 py-4">
-                            <div class="flex flex-col gap-1">
-                                @forelse($circular->attachments as $attachment)
-                                    <a href="{{ asset('storage/' . $attachment->file_path) }}" download="{{ $attachment->original_name }}" class="inline-flex items-center gap-1 text-[10px] font-bold text-secondary hover:underline">
-                                        <span class="material-symbols-outlined text-xs">download</span>
-                                        {{ Str::limit($attachment->original_name, 20) }}
-                                    </a>
-                                @empty
-                                    <span class="text-[10px] text-slate-300 italic">Sem anexos</span>
-                                @endforelse
-                            </div>
+                            @if(!empty($circular->url))
+                                <a href="{{ $circular->url }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs font-bold text-secondary hover:underline">
+                                    <span class="material-symbols-outlined text-sm">link</span>
+                                    Abrir link
+                                </a>
+                            @else
+                                <div class="flex flex-col gap-1">
+                                    @forelse($circular->attachments as $attachment)
+                                        <a href="{{ asset('storage/' . $attachment->file_path) }}" class="inline-flex items-center gap-1 text-[10px] font-bold text-secondary hover:underline" target="_blank" rel="noopener">
+                                            <span class="material-symbols-outlined text-xs">description</span>
+                                            {{ Str::limit($attachment->original_name, 20) }}
+                                        </a>
+                                    @empty
+                                        <span class="text-[10px] text-slate-300 italic">Sem PDF/Link</span>
+                                    @endforelse
+                                </div>
+                            @endif
                         </td>
                         <td class="px-6 py-4 text-right space-x-2">
                             <a href="{{ route('admin.circulars.edit', $circular) }}" class="inline-flex items-center p-2 text-primary hover:bg-primary/10 rounded-lg">

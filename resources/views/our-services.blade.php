@@ -11,38 +11,15 @@
         </nav>
 
         <h1 class="mt-4 inline-block text-4xl md:text-5xl font-black tracking-tight text-slate-900 py-[2px] border-b-2 border-[#C5A573]">{{ $page->title ?? 'Our services' }}</h1>
-
-        @php
-            $subtitleLines = !empty($page?->subtitle)
-                ? array_values(array_filter(preg_split("/\r\n|\r|\n/", trim($page->subtitle))))
-                : [];
-            $headline = $page?->primary_text ?: ($subtitleLines[0] ?? null);
-            $items = [];
-
-            if (!empty($page?->primary_text)) {
-                $items = $subtitleLines;
-            } elseif (count($subtitleLines) > 1) {
-                $items = array_slice($subtitleLines, 1);
-            }
-        @endphp
-
-        @if(!empty($headline))
-            <div class="mt-4 text-slate-600 font-semibold">
-                {{ $headline }}
-            </div>
-        @endif
-
         <div class="mt-6 text-slate-600 leading-relaxed whitespace-pre-line">
             {{ $page->text ?? 'Conteúdo em construção.' }}
         </div>
 
-        <div class="mt-10 w-full">
-            @if(!empty($page?->image))
-                <img src="{{ asset('storage/'.$page->image) }}" alt="{{ $page->title ?? 'Our services' }}" class="w-full h-[360px] md:h-[520px] object-cover">
-            @else
-                <div class="w-full h-[360px] md:h-[520px] bg-slate-200"></div>
-            @endif
-        </div>
+        @php
+            $items = !empty($page?->items)
+                ? array_values(array_filter(preg_split("/\r\n|\r|\n/", trim($page->items))))
+                : [];
+        @endphp
 
         @if(!empty($items))
             <div class="mt-10">
@@ -56,5 +33,13 @@
                 </ul>
             </div>
         @endif
+
+        <div class="mt-10 w-full">
+            @if(!empty($page?->image))
+                <img src="{{ asset('storage/'.$page->image) }}" alt="{{ $page->title ?? 'Our services' }}" class="w-full h-[360px] md:h-[520px] object-cover">
+            @else
+                <div class="w-full h-[360px] md:h-[520px] bg-slate-200"></div>
+            @endif
+        </div>
     </div>
 @endsection

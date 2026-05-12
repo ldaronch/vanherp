@@ -28,12 +28,28 @@ class CircularController extends Controller
             'title' => 'required',
             'date' => 'nullable|date',
             'description' => 'nullable',
+            'url' => 'nullable|url|max:2048',
             'attachments.*' => 'nullable|file|mimes:pdf|max:10240',
         ]);
 
-        $circular = Circular::create($validated);
+        $incomingUrl = trim((string) $request->input('url', ''));
+        $hasUrl = $incomingUrl !== '';
+        $hasAttachments = $request->hasFile('attachments');
 
-        if ($request->hasFile('attachments')) {
+        if (!$hasUrl && !$hasAttachments) {
+            return back()
+                ->withErrors(['url' => 'Informe um link ou envie ao menos um PDF.'])
+                ->withInput();
+        }
+
+        $circular = Circular::create([
+            'title' => $validated['title'],
+            'date' => $validated['date'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'url' => $hasUrl ? $incomingUrl : null,
+        ]);
+
+        if (!$hasUrl && $request->hasFile('attachments')) {
             foreach ($request->file('attachments') as $file) {
                 $path = $file->store('circular_attachments', 'public');
                 $circular->attachments()->create([
@@ -58,10 +74,38 @@ class CircularController extends Controller
             'title' => 'required',
             'date' => 'nullable|date',
             'description' => 'nullable',
+            'url' => 'nullable|url|max:2048',
             'attachments.*' => 'nullable|file|mimes:pdf|max:10240',
         ]);
 
-        $circular->update($validated);
+        $incomingUrl = trim((string) $request->input('url', ''));
+        $hasIncomingUrl = $incomingUrl !== '';
+        $hasNewAttachments = $request->hasFile('attachments');
+        $hasExistingAttachments = $circular->attachments()->exists();
+
+        if (!$hasIncomingUrl && !$hasNewAttachments && !$hasExistingAttachments) {
+            return back()
+                ->withErrors(['url' => 'Informe um link ou mantenha/envie ao menos um PDF.'])
+                ->withInput();
+        }
+
+        if ($hasIncomingUrl) {
+            foreach ($circular->attachments as $attachment) {
+                Storage::disk('public')->delete($attachment->file_path);
+            }
+            $circular->attachments()->delete();
+        }
+
+        if ($hasNewAttachments) {
+            $incomingUrl = '';
+        }
+
+        $circular->update([
+            'title' => $validated['title'],
+            'date' => $validated['date'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'url' => $incomingUrl !== '' ? $incomingUrl : null,
+        ]);
 
         if ($request->hasFile('attachments')) {
             foreach ($request->file('attachments') as $file) {

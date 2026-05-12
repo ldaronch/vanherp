@@ -138,8 +138,9 @@ Route::get('/our-history', function () {
     $page = Content::query()
         ->where('section', 'our_history')
         ->where('is_active', true)
+        ->orderByDesc('sort_order')
         ->orderByDesc('created_at')
-        ->first(['id', 'title', 'primary_text', 'subtitle', 'text', 'image']);
+        ->first(['id', 'title', 'text', 'image']);
 
     $socialNetworks = SocialNetwork::query()
         ->where('is_active', true)
@@ -155,8 +156,9 @@ Route::get('/our-services', function () {
     $page = Content::query()
         ->where('section', 'our_services')
         ->where('is_active', true)
+        ->orderByDesc('sort_order')
         ->orderByDesc('created_at')
-        ->first(['id', 'title', 'primary_text', 'subtitle', 'text', 'image']);
+        ->first(['id', 'title', 'text', 'items', 'image']);
 
     $socialNetworks = SocialNetwork::query()
         ->where('is_active', true)
@@ -322,6 +324,7 @@ use App\Http\Controllers\Admin\PiClubItemController;
 use App\Http\Controllers\Admin\CircularGuidelineSectionController;
 use App\Http\Controllers\Admin\CircularGuidelineItemController;
 use App\Http\Controllers\Admin\PageBannerController;
+use App\Http\Controllers\Admin\InstitutionalContentController;
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -373,4 +376,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('posts', PostController::class)->except(['show']);
     Route::patch('posts/{post}/toggle', [PostController::class, 'toggle'])->name('posts.toggle');
     Route::patch('contents/{content}/toggle', [ContentController::class, 'toggle'])->name('contents.toggle');
+
+    Route::get('institutional/{section}', [InstitutionalContentController::class, 'index'])->name('institutional-contents.index');
+    Route::get('institutional/{section}/create', [InstitutionalContentController::class, 'create'])->name('institutional-contents.create');
+    Route::post('institutional/{section}', [InstitutionalContentController::class, 'store'])->name('institutional-contents.store');
+    Route::get('institutional/{section}/{content}/edit', [InstitutionalContentController::class, 'edit'])->name('institutional-contents.edit');
+    Route::put('institutional/{section}/{content}', [InstitutionalContentController::class, 'update'])->name('institutional-contents.update');
+    Route::patch('institutional/{section}/{content}/toggle', [InstitutionalContentController::class, 'toggle'])->name('institutional-contents.toggle');
+    Route::delete('institutional/{section}/{content}', [InstitutionalContentController::class, 'destroy'])->name('institutional-contents.destroy');
 });

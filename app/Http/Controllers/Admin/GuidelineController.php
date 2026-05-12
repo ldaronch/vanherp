@@ -25,13 +25,28 @@ class GuidelineController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required',
-            'file_path' => 'required|file|mimes:pdf|max:5120',
+            'url' => 'nullable|url|max:2048',
+            'file_path' => 'nullable|file|mimes:pdf|max:5120',
             'description' => 'nullable',
         ]);
 
-        if ($request->hasFile('file_path')) {
+        $incomingUrl = trim((string) $request->input('url', ''));
+        $hasUrl = $incomingUrl !== '';
+        $hasFile = $request->hasFile('file_path');
+
+        if (!$hasUrl && !$hasFile) {
+            return back()
+                ->withErrors(['url' => 'Informe um link ou envie um PDF.'])
+                ->withInput();
+        }
+
+        if ($hasFile) {
             $path = $request->file('file_path')->store('guidelines', 'public');
             $validated['file_path'] = $path;
+            $validated['url'] = null;
+        } else {
+            $validated['file_path'] = '';
+            $validated['url'] = $incomingUrl;
         }
 
         Guideline::create($validated);
@@ -47,16 +62,37 @@ class GuidelineController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required',
+            'url' => 'nullable|url|max:2048',
             'file_path' => 'nullable|file|mimes:pdf|max:5120',
             'description' => 'nullable',
         ]);
 
-        if ($request->hasFile('file_path')) {
+        $incomingUrl = trim((string) $request->input('url', ''));
+        $hasIncomingUrl = $incomingUrl !== '';
+        $hasNewFile = $request->hasFile('file_path');
+        $hasExistingFile = !empty($guideline->file_path);
+
+        if (!$hasIncomingUrl && !$hasNewFile && !$hasExistingFile) {
+            return back()
+                ->withErrors(['url' => 'Informe um link ou mantenha/envie um PDF.'])
+                ->withInput();
+        }
+
+        if ($hasIncomingUrl) {
+            if (!empty($guideline->file_path)) {
+                Storage::disk('public')->delete($guideline->file_path);
+            }
+            $validated['file_path'] = '';
+            $validated['url'] = $incomingUrl;
+        }
+
+        if ($hasNewFile) {
             if ($guideline->file_path) {
                 Storage::disk('public')->delete($guideline->file_path);
             }
             $path = $request->file('file_path')->store('guidelines', 'public');
             $validated['file_path'] = $path;
+            $validated['url'] = null;
         }
 
         $guideline->update($validated);
