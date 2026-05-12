@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\ContactSetting;
-use Illuminate\Http\Request;
 
 class ContactSettingController extends Controller
 {
@@ -16,6 +15,7 @@ class ContactSettingController extends Controller
             'site_title' => 'Precise Monolith',
             'email_display' => 'contato@empresa.com',
             'phone' => '(00) 0000-0000',
+            'emergency_phone' => '(00) 0000-0000',
             'copyright_text' => '© 2026 Todos os direitos reservados.',
         ]);
         return view('admin.contact.edit', compact('contact'));
@@ -32,10 +32,12 @@ class ContactSettingController extends Controller
             'phone' => 'nullable',
             'cellphone' => 'nullable',
             'whatsapp' => 'nullable',
+            'emergency_phone' => 'nullable',
             'address' => 'nullable',
             'city' => 'nullable',
             'state' => 'nullable',
             'zip_code' => 'nullable',
+            'mailing_address' => 'nullable',
             'maps_iframe' => 'nullable',
             'working_hours' => 'nullable',
             'copyright_text' => 'nullable',

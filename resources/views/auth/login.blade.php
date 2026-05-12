@@ -3,7 +3,12 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Login | Precise Monolith Dashboard</title>
+    <title>Entrar | Painel Precise Monolith</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any"/>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}"/>
+    <link rel="icon" type="image/png" href="{{ asset('favicon-96x96.png') }}" sizes="96x96"/>
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}"/>
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -73,45 +78,15 @@
         <div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-primary-fixed/30 blur-[120px]"></div>
         <div class="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-secondary-fixed/20 blur-[120px]"></div>
     </div>
-    <main class="relative z-10 w-full max-w-[1200px] px-6 py-12 flex flex-col md:flex-row items-center gap-16">
-        <div class="hidden md:flex flex-col flex-1 space-y-8">
-            <div class="space-y-4">
-                <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 polish-gradient rounded-lg flex items-center justify-center">
-                        <span class="material-symbols-outlined text-white">architecture</span>
-                    </div>
-                    <span class="text-2xl font-black tracking-tight text-on-surface">Precise Monolith</span>
+    <main class="relative z-10 w-full max-w-md px-6 py-8 flex items-center justify-center">
+        <div class="w-full">
+            <div class="bg-surface-container-lowest ambient-lift p-7 md:p-8 rounded-[1rem] ghost-border flex flex-col">
+                <div class="flex flex-col items-center mb-6">
+                    <img alt="Logo" class="h-24 w-auto mb-2" src="{{ route('site.logo') }}"/>
                 </div>
-                <h1 class="text-5xl font-extrabold tracking-tighter text-on-surface leading-[1.1]">
-                    Professional workspace <br/>
-                    <span class="text-primary">defined by clarity.</span>
-                </h1>
-                <p class="text-on-surface-variant text-lg max-w-md font-medium leading-relaxed">
-                    Access your high-stakes management console. Built for speed, carved for architectural precision.
-                </p>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-surface-container-low p-6 rounded-xl space-y-2">
-                    <span class="text-3xl font-bold tracking-tight text-on-surface">99.9%</span>
-                    <p class="text-xs uppercase tracking-widest font-semibold text-on-surface-variant">Uptime SLA</p>
-                </div>
-                <div class="bg-surface-container-low p-6 rounded-xl space-y-2">
-                    <span class="text-3xl font-bold tracking-tight text-on-surface">256-bit</span>
-                    <p class="text-xs uppercase tracking-widest font-semibold text-on-surface-variant">AES Encryption</p>
-                </div>
-            </div>
-        </div>
-        <div class="w-full max-w-md">
-            <div class="bg-surface-container-lowest ambient-lift p-8 md:p-10 rounded-[1rem] ghost-border flex flex-col">
-                <div class="md:hidden flex flex-col items-center mb-8">
-                    <div class="h-12 w-12 polish-gradient rounded-lg flex items-center justify-center mb-4">
-                        <span class="material-symbols-outlined text-white">architecture</span>
-                    </div>
-                    <h2 class="text-xl font-bold tracking-tight">Precise Monolith</h2>
-                </div>
-                <div class="mb-8 text-center md:text-left">
-                    <h2 class="text-2xl font-bold text-on-surface tracking-tight">Welcome Back</h2>
-                    <p class="text-on-surface-variant font-medium text-sm mt-1">Please enter your credentials to access the dashboard.</p>
+                <div class="mb-6 text-center">
+                    <h2 class="text-2xl font-bold text-on-surface tracking-tight">Bem-vindo(a)</h2>
+                    <p class="text-on-surface-variant font-medium text-sm mt-1">Informe seus dados para acessar o painel.</p>
                 </div>
 
                 @if($errors->any())
@@ -120,19 +95,19 @@
                     </div>
                 @endif
 
-                <form class="space-y-6" method="POST" action="{{ route('login') }}">
+                <form class="space-y-5" method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="space-y-2">
-                        <label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant" for="email">Email Address</label>
+                        <label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant" for="email">E-mail</label>
                         <div class="relative">
                             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">mail</span>
-                            <input class="w-full bg-surface-container-lowest ghost-border rounded-lg py-3.5 pl-11 pr-4 text-sm font-medium focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all outline-none" id="email" name="email" placeholder="alex@monolith.ui" type="email" value="{{ old('email') }}" required autofocus/>
+                            <input class="w-full bg-surface-container-lowest ghost-border rounded-lg py-3.5 pl-11 pr-4 text-sm font-medium focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all outline-none" id="email" name="email" placeholder="seuemail@dominio.com" type="email" value="{{ old('email') }}" required autofocus/>
                         </div>
                     </div>
                     <div class="space-y-2">
                         <div class="flex justify-between items-center">
-                            <label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant" for="password">Password</label>
-                            <a class="text-xs font-semibold text-primary hover:underline transition-all" href="#">Forgot Password?</a>
+                            <label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant" for="password">Senha</label>
+                            <a class="text-xs font-semibold text-primary hover:underline transition-all" href="{{ route('password.request') }}">Esqueci minha senha</a>
                         </div>
                         <div class="relative">
                             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">lock</span>
@@ -141,21 +116,21 @@
                     </div>
                     <div class="flex items-center gap-2 py-1">
                         <input class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary" id="remember" name="remember" type="checkbox"/>
-                        <label class="text-sm font-medium text-on-surface-variant cursor-pointer select-none" for="remember">Remember this device</label>
+                        <label class="text-sm font-medium text-on-surface-variant cursor-pointer select-none" for="remember">Lembrar neste dispositivo</label>
                     </div>
-                    <button class="w-full polish-gradient text-white font-bold py-4 rounded-lg shadow-lg shadow-primary/20 hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2" type="submit">
-                        <span>Sign In to Workspace</span>
+                    <button class="w-full bg-primary text-white font-bold py-4 rounded-lg shadow-lg shadow-primary/20 hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2" type="submit">
+                        <span>Entrar no painel</span>
                         <span class="material-symbols-outlined">login</span>
                     </button>
                 </form>
-                <div class="mt-10 flex flex-col items-center space-y-4">
+                <div class="mt-8 flex flex-col items-center space-y-3">
                     <div class="flex items-center gap-4 w-full">
                         <div class="h-[1px] flex-1 bg-outline-variant opacity-20"></div>
-                        <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-on-surface-variant/60">Restricted Access</span>
+                        <span class="text-[10px] uppercase font-bold tracking-[0.2em] text-on-surface-variant/60">Acesso restrito</span>
                         <div class="h-[1px] flex-1 bg-outline-variant opacity-20"></div>
                     </div>
                     <p class="text-xs text-on-surface-variant/80 text-center leading-relaxed">
-                        Authorized personnel only. All access attempts are logged and monitored according to system protocols.
+                        Somente pessoal autorizado. Todas as tentativas de acesso são registradas e monitoradas.
                     </p>
                 </div>
             </div>
@@ -164,12 +139,12 @@
     <footer class="w-full py-8 mt-auto z-10 border-t border-outline-variant/10">
         <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <p class="text-[10px] uppercase tracking-widest font-semibold text-secondary">
-                © 2026 Precise Monolith UI. System Operational.
+                © 2026 Precise Monolith. Sistema operacional.
             </p>
             <div class="flex items-center gap-6">
-                <a class="text-[10px] uppercase tracking-widest font-semibold text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
-                <a class="text-[10px] uppercase tracking-widest font-semibold text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
-                <a class="text-[10px] uppercase tracking-widest font-semibold text-secondary hover:text-primary transition-colors" href="#">Contact Admin</a>
+                <a class="text-[10px] uppercase tracking-widest font-semibold text-secondary hover:text-primary transition-colors" href="#">Política de Privacidade</a>
+                <a class="text-[10px] uppercase tracking-widest font-semibold text-secondary hover:text-primary transition-colors" href="#">Termos de Uso</a>
+                <a class="text-[10px] uppercase tracking-widest font-semibold text-secondary hover:text-primary transition-colors" href="#">Contato</a>
             </div>
         </div>
     </footer>

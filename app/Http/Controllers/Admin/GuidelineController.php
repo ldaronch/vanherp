@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Guideline;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class GuidelineController extends Controller

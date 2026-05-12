@@ -32,7 +32,7 @@
                 <textarea name="description" id="description" rows="3" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Breve resumo da diretriz...">{{ old('description') }}</textarea>
             </div>
             <div class="pt-6 border-t border-slate-100 flex justify-end">
-                <button type="submit" class="bg-primary text-white px-10 py-4 rounded-xl font-bold hover:bg-blue-900 transition-colors shadow-lg active:scale-95 duration-150">
+                <button type="submit" class="bg-primary text-white px-10 py-4 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg active:scale-95 duration-150">
                     Cadastrar Diretriz
                 </button>
             </div>

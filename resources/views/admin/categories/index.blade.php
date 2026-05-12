@@ -8,7 +8,7 @@
             <h2 class="text-[2.75rem] font-bold tracking-tight text-on-surface leading-tight mb-2">Categorias</h2>
             <p class="text-on-surface-variant font-medium">Gerencie as categorias das notícias do blog.</p>
         </div>
-        <a href="{{ route('admin.categories.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-900 transition-colors shadow-lg">
+        <a href="{{ route('admin.categories.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg">
             <span class="material-symbols-outlined">add</span>
             Nova Categoria
         </a>
@@ -39,7 +39,7 @@
                             <span class="bg-slate-100 text-slate-600 px-2 py-1 rounded text-xs font-bold">{{ $category->posts()->count() }}</span>
                         </td>
                         <td class="px-6 py-4 text-right space-x-2">
-                            <a href="{{ route('admin.categories.edit', $category) }}" class="inline-flex items-center p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                            <a href="{{ route('admin.categories.edit', $category) }}" class="inline-flex items-center p-2 text-primary hover:bg-primary/10 rounded-lg">
                                 <span class="material-symbols-outlined text-sm">edit</span>
                             </a>
                             <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="inline-block" onsubmit="return confirm('Excluir categoria?')">

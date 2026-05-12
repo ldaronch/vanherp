@@ -13,7 +13,7 @@ class CreateContactSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contact_settings', function (Blueprint $table) {
+        Schema::create('config_settings', function (Blueprint $table) {
             $table->id();
             $table->string('site_title')->nullable();
             $table->string('email_leads')->nullable();
@@ -39,6 +39,6 @@ class CreateContactSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contact_settings');
+        Schema::dropIfExists('config_settings');
     }
 }

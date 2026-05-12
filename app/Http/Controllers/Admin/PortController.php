@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Port;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class PortController extends Controller

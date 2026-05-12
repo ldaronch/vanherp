@@ -8,7 +8,7 @@
             <h2 class="text-[2.75rem] font-bold tracking-tight text-on-surface leading-tight mb-2">Portos</h2>
             <p class="text-on-surface-variant font-medium">Gerencie os portos de atuação da empresa.</p>
         </div>
-        <a href="{{ route('admin.ports.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-900 transition-colors shadow-lg">
+        <a href="{{ route('admin.ports.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg">
             <span class="material-symbols-outlined">add</span>
             Novo Porto
         </a>
@@ -30,7 +30,7 @@
                     <div class="flex justify-between items-start mb-2">
                         <h3 class="text-lg font-bold text-on-surface">{{ $port->name }}</h3>
                         <div class="flex gap-2">
-                            <a href="{{ route('admin.ports.edit', $port) }}" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                            <a href="{{ route('admin.ports.edit', $port) }}" class="p-2 text-primary hover:bg-primary/10 rounded-lg">
                                 <span class="material-symbols-outlined text-sm">edit</span>
                             </a>
                             <form action="{{ route('admin.ports.destroy', $port) }}" method="POST" onsubmit="return confirm('Excluir este porto?')">

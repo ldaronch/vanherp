@@ -8,7 +8,7 @@
             <h2 class="text-[2.75rem] font-bold tracking-tight text-on-surface leading-tight mb-2">Textos e Fotos</h2>
             <p class="text-on-surface-variant font-medium">Gerencie blocos de conteúdo com imagens para o site.</p>
         </div>
-        <a href="{{ route('admin.contents.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg">
+        <a href="{{ route('admin.contents.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg">
             <span class="material-symbols-outlined">add</span>
             Novo Conteúdo
         </a>
@@ -29,7 +29,7 @@
                             <h3 class="text-xl font-bold text-on-surface">{{ $content->title }}</h3>
                         </div>
                         <div class="flex gap-2">
-                            <a href="{{ route('admin.contents.edit', $content) }}" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                            <a href="{{ route('admin.contents.edit', $content) }}" class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors">
                                 <span class="material-symbols-outlined text-sm">edit</span>
                             </a>
                             <form action="{{ route('admin.contents.destroy', $content) }}" method="POST" onsubmit="return confirm('Excluir este conteúdo?')">

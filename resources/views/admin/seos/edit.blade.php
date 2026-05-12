@@ -39,7 +39,7 @@
                 @error('keywords') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
             </div>
             <div class="pt-6 border-t border-slate-100 flex justify-end">
-                <button type="submit" class="bg-primary text-white px-10 py-4 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg">
+                <button type="submit" class="bg-primary text-white px-10 py-4 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg">
                     Atualizar SEO
                 </button>
             </div>

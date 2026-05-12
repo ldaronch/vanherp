@@ -19,6 +19,10 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->timestamps();
         });
+
+        Schema::table('posts', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+        });
     }
 
     /**
@@ -28,6 +32,12 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
+        if (Schema::hasTable('posts')) {
+            Schema::table('posts', function (Blueprint $table) {
+                $table->dropForeign(['category_id']);
+            });
+        }
+
         Schema::dropIfExists('categories');
     }
 }

@@ -8,7 +8,7 @@
             <h2 class="text-[2.75rem] font-bold tracking-tight text-on-surface leading-tight mb-2">Parceiros</h2>
             <p class="text-on-surface-variant font-medium">Gerencie os logotipos e links dos seus parceiros.</p>
         </div>
-        <a href="{{ route('admin.partners.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg">
+        <a href="{{ route('admin.partners.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg">
             <span class="material-symbols-outlined">add</span>
             Novo Parceiro
         </a>
@@ -23,7 +23,7 @@
                 <h3 class="text-sm font-bold text-on-surface text-center line-clamp-1">{{ $partner->name }}</h3>
                 
                 <div class="absolute inset-0 bg-white/90 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 rounded-xl">
-                    <a href="{{ route('admin.partners.edit', $partner) }}" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                    <a href="{{ route('admin.partners.edit', $partner) }}" class="p-2 text-primary hover:bg-primary/10 rounded-lg">
                         <span class="material-symbols-outlined text-sm">edit</span>
                     </a>
                     <form action="{{ route('admin.partners.destroy', $partner) }}" method="POST" onsubmit="return confirm('Excluir parceiro?')">

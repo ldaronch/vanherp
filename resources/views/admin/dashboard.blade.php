@@ -1,147 +1,224 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard - Visão Geral')
+@section('title', 'Painel - Informações Portuárias')
 
 @section('content')
-    <!-- Hero Section -->
-    <header class="mb-10">
-        <h2 class="text-[2.75rem] font-bold tracking-tight text-on-surface leading-tight mb-2">Saúde do Sistema</h2>
-        <p class="text-on-surface-variant font-medium">Métricas de desempenho em tempo real e visão operacional.</p>
+    <header class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+            <h2 class="text-[2.25rem] md:text-[2.75rem] font-bold tracking-tight text-on-surface leading-tight mb-2">Painel de Informações Portuárias</h2>
+            <p class="text-on-surface-variant font-medium">Visão geral do conteúdo cadastrado e acesso rápido às principais áreas.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+            <a class="inline-flex items-center gap-2 bg-primary text-white px-5 py-3 rounded-lg font-bold text-sm shadow-lg shadow-primary/10 hover:brightness-110 active:scale-[0.98] transition-all" href="{{ route('admin.ports.create') }}">
+                <span class="material-symbols-outlined text-[20px]">directions_boat</span>
+                <span>Novo porto</span>
+            </a>
+            <a class="inline-flex items-center gap-2 bg-primary/10 text-primary px-5 py-3 rounded-lg font-bold text-sm hover:bg-primary/15 active:scale-[0.98] transition-all" href="{{ route('admin.circulars.create') }}">
+                <span class="material-symbols-outlined text-[20px]">description</span>
+                <span>Nova circular</span>
+            </a>
+            <a class="inline-flex items-center gap-2 bg-primary/10 text-primary px-5 py-3 rounded-lg font-bold text-sm hover:bg-primary/15 active:scale-[0.98] transition-all" href="{{ route('admin.posts.create') }}">
+                <span class="material-symbols-outlined text-[20px]">newspaper</span>
+                <span>Nova notícia</span>
+            </a>
+        </div>
     </header>
 
-    <!-- Bento Grid Metrics -->
     <div class="grid grid-cols-12 gap-6 mb-12">
-        <!-- Large Metric -->
-        <div class="col-span-12 lg:col-span-8 bg-surface-container-lowest p-8 rounded-xl shadow-sm flex flex-col justify-between border-none">
-            <div class="flex justify-between items-start">
+        <a class="col-span-12 sm:col-span-6 lg:col-span-4 bg-surface-container-lowest p-7 rounded-xl shadow-sm hover:bg-surface-container-low transition-colors" href="{{ route('admin.ports.index') }}">
+            <div class="flex items-start justify-between gap-4">
                 <div>
-                    <span class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-4 block">Crescimento Primário</span>
-                    <div class="text-[3.5rem] font-extrabold text-primary tracking-tighter">14,285</div>
-                    <div class="flex items-center gap-2 mt-2">
-                        <span class="flex items-center text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded text-xs font-bold">
-                            <span class="material-symbols-outlined text-xs mr-1">trending_up</span> +12.4%
+                    <div class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-2">Portos</div>
+                    <div class="text-4xl font-extrabold text-on-surface tracking-tight">{{ number_format($stats['ports']) }}</div>
+                    <div class="mt-2 text-xs text-on-surface-variant font-medium">Cadastro de portos e terminais</div>
+                </div>
+                <span class="material-symbols-outlined text-primary text-3xl">directions_boat</span>
+            </div>
+        </a>
+
+        <a class="col-span-12 sm:col-span-6 lg:col-span-4 bg-surface-container-lowest p-7 rounded-xl shadow-sm hover:bg-surface-container-low transition-colors" href="{{ route('admin.circulars.index') }}">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <div class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-2">Circulares</div>
+                    <div class="text-4xl font-extrabold text-on-surface tracking-tight">{{ number_format($stats['circulars']) }}</div>
+                    <div class="mt-2 text-xs text-on-surface-variant font-medium">Documentos e comunicados</div>
+                </div>
+                <span class="material-symbols-outlined text-primary text-3xl">description</span>
+            </div>
+        </a>
+
+        <a class="col-span-12 sm:col-span-6 lg:col-span-4 bg-surface-container-lowest p-7 rounded-xl shadow-sm hover:bg-surface-container-low transition-colors" href="{{ route('admin.guidelines.index') }}">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <div class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-2">Diretrizes</div>
+                    <div class="text-4xl font-extrabold text-on-surface tracking-tight">{{ number_format($stats['guidelines']) }}</div>
+                    <div class="mt-2 text-xs text-on-surface-variant font-medium">Normas e instruções operacionais</div>
+                </div>
+                <span class="material-symbols-outlined text-primary text-3xl">assignment</span>
+            </div>
+        </a>
+
+        <div class="col-span-12 lg:col-span-8 bg-surface-container-lowest p-7 rounded-xl shadow-sm">
+            <div class="flex items-start justify-between gap-6">
+                <div>
+                    <div class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-2">Notícias</div>
+                    <div class="text-4xl font-extrabold text-on-surface tracking-tight">{{ number_format($stats['posts_total']) }}</div>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="inline-flex items-center gap-2 text-xs font-bold px-2.5 py-1 rounded bg-emerald-50 text-emerald-700">
+                            <span class="material-symbols-outlined text-[16px]">task_alt</span>
+                            <span>{{ number_format($stats['posts_published']) }} publicadas</span>
                         </span>
-                        <span class="text-xs text-on-surface-variant font-medium">vs último mês</span>
+                        <span class="inline-flex items-center gap-2 text-xs font-bold px-2.5 py-1 rounded bg-amber-50 text-amber-800">
+                            <span class="material-symbols-outlined text-[16px]">draft</span>
+                            <span>{{ number_format($stats['posts_drafts']) }} rascunhos</span>
+                        </span>
                     </div>
                 </div>
-                <div class="w-1/2 h-32 opacity-20">
-                    <img alt="Chart Visualization" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2d3mdbkl0jj4DtqecRyguLho_gKJwuPyXLeQ40ebYDOwcf2pvnLFK4MsWFyYCeofVY08FuVOGnr0Y6KfJN_Z5c9d4B3t8ZFqL4XrtbwVuX-IuyeZg5uyFKCrZUJyCM4vBNZFjbwVpEsitSI9px2cbTGdkD_8xdORSANS2YkYNsr7p9Qo6jKPgauZYYzvqW-qDDCRutIcdculoWf78mOA9XpGTTpCoOo6yRJBZLs-rWO33RNCwbZNXXDMAtu0ZNIFmKK2svNYJmPp4"/>
+                <div class="hidden md:flex flex-col items-end">
+                    <a class="text-primary text-xs font-bold hover:underline" href="{{ route('admin.posts.index') }}">Gerenciar notícias</a>
+                    <div class="mt-6 w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary text-4xl">newspaper</span>
+                    </div>
                 </div>
             </div>
-            <div class="mt-8 pt-8 border-t border-slate-50 flex gap-12">
+        </div>
+
+        <a class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-lowest p-7 rounded-xl shadow-sm hover:bg-surface-container-low transition-colors" href="{{ route('admin.categories.index') }}">
+            <div class="flex items-start justify-between gap-4">
                 <div>
-                    <div class="text-label-md text-on-surface-variant font-semibold">Total de Usuários</div>
-                    <div class="text-xl font-bold text-on-surface">1.2M</div>
+                    <div class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-2">Categorias</div>
+                    <div class="text-4xl font-extrabold text-on-surface tracking-tight">{{ number_format($stats['categories']) }}</div>
+                    <div class="mt-2 text-xs text-on-surface-variant font-medium">Organização das notícias</div>
                 </div>
+                <span class="material-symbols-outlined text-primary text-3xl">category</span>
+            </div>
+        </a>
+
+        <a class="col-span-12 md:col-span-6 lg:col-span-3 bg-surface-container-lowest p-7 rounded-xl shadow-sm hover:bg-surface-container-low transition-colors" href="{{ route('admin.banners.index') }}">
+            <div class="flex items-start justify-between gap-4">
                 <div>
-                    <div class="text-label-md text-on-surface-variant font-semibold">Nós Ativos</div>
-                    <div class="text-xl font-bold text-on-surface">842</div>
+                    <div class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-2">Banners</div>
+                    <div class="text-4xl font-extrabold text-on-surface tracking-tight">{{ number_format($stats['banners']) }}</div>
+                    <div class="mt-2 text-xs text-on-surface-variant font-medium">Destaques do site</div>
                 </div>
+                <span class="material-symbols-outlined text-primary text-3xl">view_carousel</span>
             </div>
-        </div>
+        </a>
 
-        <!-- Small Metric 1 -->
-        <div class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-low p-8 rounded-xl flex flex-col justify-between">
-            <span class="material-symbols-outlined text-tertiary text-3xl mb-4">bolt</span>
-            <div>
-                <span class="text-xs uppercase tracking-widest font-bold text-on-surface-variant block mb-1">Sessões Ativas</span>
-                <div class="text-3xl font-extrabold text-on-surface">4,912</div>
-                <div class="mt-4 h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
-                    <div class="h-full bg-tertiary w-3/4"></div>
+        <a class="col-span-12 md:col-span-6 lg:col-span-3 bg-surface-container-lowest p-7 rounded-xl shadow-sm hover:bg-surface-container-low transition-colors" href="{{ route('admin.partners.index') }}">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <div class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-2">Parceiros</div>
+                    <div class="text-4xl font-extrabold text-on-surface tracking-tight">{{ number_format($stats['partners']) }}</div>
+                    <div class="mt-2 text-xs text-on-surface-variant font-medium">Instituições e apoiadores</div>
                 </div>
+                <span class="material-symbols-outlined text-primary text-3xl">handshake</span>
             </div>
-        </div>
+        </a>
 
-        <!-- Small Metric 2 -->
-        <div class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-low p-8 rounded-xl flex flex-col justify-between">
-            <span class="material-symbols-outlined text-blue-600 text-3xl mb-4">task_alt</span>
-            <div>
-                <span class="text-xs uppercase tracking-widest font-bold text-on-surface-variant block mb-1">Tarefas Pendentes</span>
-                <div class="text-3xl font-extrabold text-on-surface">28</div>
-                <div class="mt-2 text-xs font-medium text-on-surface-variant italic">Fila de alta prioridade: 4</div>
+        <a class="col-span-12 md:col-span-6 lg:col-span-3 bg-surface-container-lowest p-7 rounded-xl shadow-sm hover:bg-surface-container-low transition-colors" href="{{ route('admin.clients.index') }}">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <div class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-2">Clientes</div>
+                    <div class="text-4xl font-extrabold text-on-surface tracking-tight">{{ number_format($stats['clients']) }}</div>
+                    <div class="mt-2 text-xs text-on-surface-variant font-medium">Empresas e usuários do portal</div>
+                </div>
+                <span class="material-symbols-outlined text-primary text-3xl">group</span>
             </div>
-        </div>
+        </a>
 
-        <!-- CTA Card -->
-        <div class="col-span-12 lg:col-span-8 polish-gradient p-8 rounded-xl flex items-center justify-between text-white overflow-hidden relative">
-            <div class="relative z-10">
-                <h3 class="text-2xl font-bold mb-2">Nova Atualização do Sistema Disponível</h3>
-                <p class="text-blue-100 opacity-90 max-w-md mb-6">Experimente as últimas melhorias arquiteturais e patches de desempenho v4.2.0.</p>
-                <button class="bg-white text-primary px-6 py-2.5 rounded font-bold text-sm hover:bg-blue-50 transition-colors shadow-lg">Instalar Agora</button>
+        <a class="col-span-12 md:col-span-6 lg:col-span-3 bg-surface-container-lowest p-7 rounded-xl shadow-sm hover:bg-surface-container-low transition-colors" href="{{ route('admin.users.index') }}">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <div class="text-xs uppercase tracking-widest font-bold text-on-surface-variant mb-2">Usuários</div>
+                    <div class="text-4xl font-extrabold text-on-surface tracking-tight">{{ number_format($stats['users']) }}</div>
+                    <div class="mt-2 text-xs text-on-surface-variant font-medium">Acesso ao painel administrativo</div>
+                </div>
+                <span class="material-symbols-outlined text-primary text-3xl">person</span>
             </div>
-            <div class="absolute right-0 top-0 h-full w-1/3 overflow-hidden opacity-20 transform translate-x-10">
-                <span class="material-symbols-outlined text-[12rem] text-white">architecture</span>
-            </div>
-        </div>
+        </a>
     </div>
 
-    <!-- Secondary Content Section -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
-        <div class="bg-surface-container-lowest p-8 rounded-xl">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
+        <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-lg font-bold text-on-surface">Atividade Recente</h3>
-                <button class="text-primary text-xs font-bold hover:underline">Ver Tudo</button>
+                <h3 class="text-lg font-bold text-on-surface">Últimas circulares</h3>
+                <a class="text-primary text-xs font-bold hover:underline" href="{{ route('admin.circulars.index') }}">Ver todas</a>
             </div>
-            <div class="space-y-6">
-                <div class="flex items-center gap-4 py-1">
-                    <div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
-                        <span class="material-symbols-outlined text-on-surface-variant">person_add</span>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm font-semibold">Novo registro de usuário: <span class="text-primary">Sarah Miller</span></p>
-                        <p class="text-xs text-on-surface-variant">há 2 minutos</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4 py-1">
-                    <div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
-                        <span class="material-symbols-outlined text-on-surface-variant">shield</span>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm font-semibold">Configuração do sistema modificada: <span class="text-tertiary">Protocolos de Auth</span></p>
-                        <p class="text-xs text-on-surface-variant">há 1 hora</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4 py-1">
-                    <div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
-                        <span class="material-symbols-outlined text-on-surface-variant">database</span>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm font-semibold">Otimização de banco de dados concluída</p>
-                        <p class="text-xs text-on-surface-variant">há 4 horas</p>
-                    </div>
-                </div>
+            <div class="space-y-4">
+                @forelse($recentCirculars as $circular)
+                    <a class="flex items-start gap-4 p-3 rounded-lg hover:bg-surface-container-low transition-colors" href="{{ route('admin.circulars.edit', $circular) }}">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-primary">description</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold text-on-surface truncate">{{ $circular->title }}</p>
+                            <p class="text-xs text-on-surface-variant font-medium">
+                                {{ $circular->date ? \Illuminate\Support\Carbon::parse($circular->date)->format('d/m/Y') : 'Sem data' }}
+                                · {{ optional($circular->created_at)->diffForHumans() }}
+                            </p>
+                        </div>
+                    </a>
+                @empty
+                    <div class="text-sm text-on-surface-variant font-medium">Nenhuma circular cadastrada ainda.</div>
+                @endforelse
             </div>
         </div>
-        <div class="bg-surface-container-lowest p-8 rounded-xl overflow-hidden relative">
-            <img alt="Office Context" class="absolute inset-0 w-full h-full object-cover opacity-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoW1GVl45BoSBgpM_gdd924KiH2_ih2iH9iwu4O5dJTbfklcMVgDAKBX0RaODxSsziKwDO_MvO2giY7DPn88QTMXyphdBYRhKIL7HI36QbAvN9uXVPvLOrUI8wJqM6cjvYScNrnaLgjsVZeLLBk12TGNxhIuFy5HK-65A8ZqylzCTZEl3R57zM5X2rYZxPP7ozzFMdzu7cJTiMd67UgUQRoz9gR-SddYoxRVgUQQ4KM8CXCS8zmU6Sh1VT4wFO0EwUt14uHkW8BUY8"/>
-            <div class="relative z-10 flex flex-col h-full">
-                <h3 class="text-lg font-bold text-on-surface mb-6">Acesso Regional</h3>
-                <div class="flex-1 bg-surface-container-low rounded-lg flex items-center justify-center border border-slate-200/20">
-                    <div class="text-center p-6">
-                        <span class="material-symbols-outlined text-4xl text-slate-300 mb-2">map</span>
-                        <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Mapa Global de Nós</p>
-                    </div>
-                </div>
-                <div class="mt-6 flex justify-between">
-                    <div class="flex gap-4">
-                        <div class="flex items-center gap-1">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                            <span class="text-[10px] font-bold text-on-surface-variant">Online</span>
+
+        <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-bold text-on-surface">Portos recentes</h3>
+                <a class="text-primary text-xs font-bold hover:underline" href="{{ route('admin.ports.index') }}">Ver todos</a>
+            </div>
+            <div class="space-y-4">
+                @forelse($recentPorts as $port)
+                    <a class="flex items-start gap-4 p-3 rounded-lg hover:bg-surface-container-low transition-colors" href="{{ route('admin.ports.edit', $port) }}">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-primary">directions_boat</span>
                         </div>
-                        <div class="flex items-center gap-1">
-                            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                            <span class="text-[10px] font-bold text-on-surface-variant">Aviso</span>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold text-on-surface truncate">{{ $port->name }}</p>
+                            <p class="text-xs text-on-surface-variant font-medium">
+                                {{ $port->location ?: 'Localização não informada' }}
+                                · {{ optional($port->created_at)->diffForHumans() }}
+                            </p>
                         </div>
-                    </div>
-                </div>
+                    </a>
+                @empty
+                    <div class="text-sm text-on-surface-variant font-medium">Nenhum porto cadastrado ainda.</div>
+                @endforelse
+            </div>
+        </div>
+
+        <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-bold text-on-surface">Notícias recentes</h3>
+                <a class="text-primary text-xs font-bold hover:underline" href="{{ route('admin.posts.index') }}">Ver todas</a>
+            </div>
+            <div class="space-y-4">
+                @forelse($recentPosts as $post)
+                    <a class="flex items-start gap-4 p-3 rounded-lg hover:bg-surface-container-low transition-colors" href="{{ route('admin.posts.edit', $post) }}">
+                        <div class="w-10 h-10 rounded-lg {{ $post->is_published ? 'bg-emerald-50' : 'bg-amber-50' }} flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined {{ $post->is_published ? 'text-emerald-700' : 'text-amber-800' }}">{{ $post->is_published ? 'task_alt' : 'draft' }}</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold text-on-surface truncate">{{ $post->title }}</p>
+                            <p class="text-xs text-on-surface-variant font-medium">
+                                {{ $post->is_published ? 'Publicada' : 'Rascunho' }}
+                                · {{ optional($post->created_at)->diffForHumans() }}
+                            </p>
+                        </div>
+                    </a>
+                @empty
+                    <div class="text-sm text-on-surface-variant font-medium">Nenhuma notícia cadastrada ainda.</div>
+                @endforelse
             </div>
         </div>
     </div>
 
-    <!-- Floating Action Button -->
     <div class="fixed bottom-8 right-8 z-[100]">
-        <button class="w-14 h-14 rounded-full polish-gradient text-white flex items-center justify-center shadow-xl hover:scale-105 active:scale-95 transition-transform duration-150">
+        <a class="w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center shadow-xl hover:scale-105 active:scale-95 transition-transform duration-150" href="{{ route('admin.circulars.create') }}">
             <span class="material-symbols-outlined">add</span>
-        </button>
+        </a>
     </div>
 @endsection

@@ -23,15 +23,82 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\UserController;
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Models\AboutCompany;
+use App\Models\Circular;
+use App\Models\Client;
+use App\Models\ContactSetting;
+use App\Models\Guideline;
+use App\Models\Partner;
+use App\Models\Port;
+use App\Models\SocialNetwork;
+
+Route::get('logo.svg', function () {
+    $path = storage_path('app/logo.svg');
+
+    if (!file_exists($path)) {
+        $path = storage_path('app/public/logo.svg');
+    }
+
+    abort_unless(file_exists($path), 404);
+
+    return response()->file($path, [
+        'Content-Type' => 'image/svg+xml',
+    ]);
+})->name('site.logo');
 
 Route::get('/', function () {
-    return view('welcome');
+    $contact = ContactSetting::firstOrCreate([], [
+        'site_title' => 'Vanherp',
+        'email_display' => 'contato@vanherp.com',
+        'phone' => '(00) 0000-0000',
+        'copyright_text' => '© '.date('Y').' Vanherp. Todos os direitos reservados.',
+    ]);
+
+    $about = AboutCompany::first();
+
+    $ports = Port::query()
+        ->orderBy('name')
+        ->get(['id', 'name', 'location', 'description', 'image']);
+
+    $piClubs = Client::query()
+        ->orderBy('company')
+        ->orderBy('name')
+        ->get(['id', 'company', 'name', 'email', 'phone']);
+
+    $circulars = Circular::query()
+        ->orderByDesc('date')
+        ->orderByDesc('created_at')
+        ->limit(6)
+        ->get(['id', 'title', 'date', 'description', 'created_at']);
+
+    $guidelines = Guideline::query()
+        ->orderByDesc('created_at')
+        ->limit(6)
+        ->get(['id', 'title', 'file_path', 'description', 'created_at']);
+
+    $team = Partner::query()
+        ->orderBy('name')
+        ->get(['id', 'name', 'logo', 'link']);
+
+    $socialNetworks = SocialNetwork::query()
+        ->where('is_active', true)
+        ->orderBy('name')
+        ->get(['id', 'name', 'url', 'icon']);
+
+    return view('welcome', compact('contact', 'about', 'ports', 'piClubs', 'circulars', 'guidelines', 'team', 'socialNetworks'));
 });
 
 // Auth Routes
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 use App\Http\Controllers\Admin\PortController;
 use App\Http\Controllers\Admin\CircularController;
@@ -58,6 +125,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('circulars/attachments/{attachment}', [CircularController::class, 'deleteAttachment'])->name('circulars.attachments.destroy');
     Route::resource('circulars', CircularController::class);
     Route::resource('guidelines', GuidelineController::class);
+    Route::patch('social-networks/{socialNetwork}/toggle', [SocialNetworkController::class, 'toggle'])->name('social-networks.toggle');
     Route::resource('social-networks', SocialNetworkController::class);
     Route::get('contact/edit', [ContactSettingController::class, 'edit'])->name('contact.edit');
     Route::put('contact/update', [ContactSettingController::class, 'update'])->name('contact.update');

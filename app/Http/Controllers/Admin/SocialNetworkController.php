@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\SocialNetwork;
-use Illuminate\Http\Request;
 
 class SocialNetworkController extends Controller
 {
@@ -56,5 +55,14 @@ class SocialNetworkController extends Controller
     {
         $socialNetwork->delete();
         return redirect()->route('admin.social-networks.index')->with('success', 'Rede social removida com sucesso!');
+    }
+
+    public function toggle(SocialNetwork $socialNetwork)
+    {
+        $socialNetwork->update([
+            'is_active' => !$socialNetwork->is_active,
+        ]);
+
+        return redirect()->route('admin.social-networks.index')->with('success', 'Status da rede social atualizado com sucesso!');
     }
 }

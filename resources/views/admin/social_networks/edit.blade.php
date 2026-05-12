@@ -29,8 +29,12 @@
                 @error('url') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
             </div>
             <div>
-                <label for="icon" class="block text-sm font-bold text-on-surface-variant mb-2">Ícone (Material Symbol Name)</label>
-                <input type="text" name="icon" id="icon" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('icon', $socialNetwork->icon) }}">
+                <label for="icon" class="block text-sm font-bold text-on-surface-variant mb-2">Ícone (Font Awesome)</label>
+                <input type="text" name="icon" id="icon" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('icon', $socialNetwork->icon) }}" placeholder="Ex: fa-brands fa-instagram">
+                <div class="mt-2 flex items-center gap-3 text-slate-500">
+                    <span class="text-sm font-semibold">Prévia:</span>
+                    <span class="text-xl"><i class="{{ old('icon', $socialNetwork->icon) ?: 'fa-solid fa-link' }}"></i></span>
+                </div>
             </div>
             <div class="flex items-center gap-3">
                 <input type="hidden" name="is_active" value="0">
@@ -38,7 +42,7 @@
                 <label for="is_active" class="text-sm font-bold text-on-surface-variant">Ativo</label>
             </div>
             <div class="pt-6 border-t border-slate-100 flex justify-end">
-                <button type="submit" class="bg-primary text-white px-10 py-4 rounded-xl font-bold hover:bg-blue-900 transition-colors shadow-lg active:scale-95 duration-150">
+                <button type="submit" class="bg-primary text-white px-10 py-4 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg active:scale-95 duration-150">
                     Salvar Alterações
                 </button>
             </div>

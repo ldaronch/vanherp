@@ -8,7 +8,7 @@
             <h2 class="text-[2.75rem] font-bold tracking-tight text-on-surface leading-tight mb-2">Termos e Privacidade</h2>
             <p class="text-on-surface-variant font-medium">Gerencie os textos legais do site.</p>
         </div>
-        <a href="{{ route('admin.legal-texts.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-900 transition-colors shadow-lg">
+        <a href="{{ route('admin.legal-texts.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg">
             <span class="material-symbols-outlined">add</span>
             Novo Texto Legal
         </a>
@@ -29,7 +29,7 @@
                         <td class="px-6 py-4 font-semibold text-on-surface">{{ $text->title }}</td>
                         <td class="px-6 py-4 text-on-surface-variant">{{ $text->slug }}</td>
                         <td class="px-6 py-4 text-right space-x-2">
-                            <a href="{{ route('admin.legal-texts.edit', $text) }}" class="inline-flex items-center p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                            <a href="{{ route('admin.legal-texts.edit', $text) }}" class="inline-flex items-center p-2 text-primary hover:bg-primary/10 rounded-lg">
                                 <span class="material-symbols-outlined text-sm">edit</span>
                             </a>
                             <form action="{{ route('admin.legal-texts.destroy', $text) }}" method="POST" class="inline-block" onsubmit="return confirm('Excluir texto legal?')">

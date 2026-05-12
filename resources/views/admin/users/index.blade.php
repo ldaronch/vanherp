@@ -8,7 +8,7 @@
             <h2 class="text-[2.75rem] font-bold tracking-tight text-on-surface leading-tight mb-2">Usuários</h2>
             <p class="text-on-surface-variant font-medium">Gerencie os usuários que têm acesso ao painel.</p>
         </div>
-        <a href="{{ route('admin.users.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg">
+        <a href="{{ route('admin.users.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg">
             <span class="material-symbols-outlined">person_add</span>
             Novo Usuário
         </a>
@@ -44,7 +44,7 @@
                         <td class="px-6 py-4 text-on-surface-variant">{{ $user->email }}</td>
                         <td class="px-6 py-4 text-on-surface-variant">{{ $user->created_at->format('d/m/Y') }}</td>
                         <td class="px-6 py-4 text-right space-x-2">
-                            <a href="{{ route('admin.users.edit', $user) }}" class="inline-flex items-center p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                            <a href="{{ route('admin.users.edit', $user) }}" class="inline-flex items-center p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors">
                                 <span class="material-symbols-outlined text-sm">edit</span>
                             </a>
                             @if($user->id !== auth()->id())

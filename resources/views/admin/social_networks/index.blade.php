@@ -8,7 +8,7 @@
             <h2 class="text-[2.75rem] font-bold tracking-tight text-on-surface leading-tight mb-2">Redes Sociais</h2>
             <p class="text-on-surface-variant font-medium">Gerencie os links das redes sociais da empresa.</p>
         </div>
-        <a href="{{ route('admin.social-networks.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-900 transition-colors shadow-lg">
+        <a href="{{ route('admin.social-networks.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg">
             <span class="material-symbols-outlined">add</span>
             Nova Rede Social
         </a>
@@ -29,7 +29,9 @@
                     <tr class="hover:bg-slate-50/50 transition-colors">
                         <td class="px-6 py-4 font-semibold text-on-surface">
                             <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-secondary">{{ $network->icon ?? 'link' }}</span>
+                                <span class="text-secondary text-lg">
+                                    <i class="{{ $network->icon ?: 'fa-solid fa-link' }}"></i>
+                                </span>
                                 {{ $network->name }}
                             </div>
                         </td>
@@ -40,7 +42,14 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 text-right space-x-2">
-                            <a href="{{ route('admin.social-networks.edit', $network) }}" class="inline-flex items-center p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                            <form action="{{ route('admin.social-networks.toggle', $network) }}" method="POST" class="inline-block">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="inline-flex items-center p-2 {{ $network->is_active ? 'text-amber-700 hover:bg-amber-50' : 'text-emerald-700 hover:bg-emerald-50' }} rounded-lg transition-colors" title="{{ $network->is_active ? 'Inativar' : 'Ativar' }}">
+                                    <span class="material-symbols-outlined text-sm">{{ $network->is_active ? 'toggle_off' : 'toggle_on' }}</span>
+                                </button>
+                            </form>
+                            <a href="{{ route('admin.social-networks.edit', $network) }}" class="inline-flex items-center p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors">
                                 <span class="material-symbols-outlined text-sm">edit</span>
                             </a>
                             <form action="{{ route('admin.social-networks.destroy', $network) }}" method="POST" class="inline-block" onsubmit="return confirm('Excluir rede social?')">

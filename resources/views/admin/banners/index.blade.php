@@ -8,7 +8,7 @@
             <h2 class="text-[2.75rem] font-bold tracking-tight text-on-surface leading-tight mb-2">Banners Principais</h2>
             <p class="text-on-surface-variant font-medium">Gerencie os banners da página inicial.</p>
         </div>
-        <a href="{{ route('admin.banners.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-lg">
+        <a href="{{ route('admin.banners.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg">
             <span class="material-symbols-outlined">add</span>
             Novo Banner
         </a>
@@ -31,7 +31,7 @@
                     <div class="flex justify-between items-center mt-auto pt-4 border-t border-slate-50">
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ordem: {{ $banner->order }}</span>
                         <div class="flex gap-2">
-                            <a href="{{ route('admin.banners.edit', $banner) }}" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                            <a href="{{ route('admin.banners.edit', $banner) }}" class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors">
                                 <span class="material-symbols-outlined text-sm">edit</span>
                             </a>
                             <form action="{{ route('admin.banners.destroy', $banner) }}" method="POST" onsubmit="return confirm('Excluir este banner?')">

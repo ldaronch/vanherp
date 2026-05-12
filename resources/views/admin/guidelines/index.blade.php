@@ -8,7 +8,7 @@
             <h2 class="text-[2.75rem] font-bold tracking-tight text-on-surface leading-tight mb-2">Diretrizes</h2>
             <p class="text-on-surface-variant font-medium">Gerencie as diretrizes e normas operacionais.</p>
         </div>
-        <a href="{{ route('admin.guidelines.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-900 transition-colors shadow-lg">
+        <a href="{{ route('admin.guidelines.create') }}" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg">
             <span class="material-symbols-outlined">add</span>
             Nova Diretriz
         </a>
@@ -34,7 +34,7 @@
                             </a>
                         </td>
                         <td class="px-6 py-4 text-right space-x-2">
-                            <a href="{{ route('admin.guidelines.edit', $guideline) }}" class="inline-flex items-center p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                            <a href="{{ route('admin.guidelines.edit', $guideline) }}" class="inline-flex items-center p-2 text-primary hover:bg-primary/10 rounded-lg">
                                 <span class="material-symbols-outlined text-sm">edit</span>
                             </a>
                             <form action="{{ route('admin.guidelines.destroy', $guideline) }}" method="POST" class="inline-block" onsubmit="return confirm('Excluir diretriz?')">
