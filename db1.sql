@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `about_company` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela vanherp.about_company: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela vanherp.about_company: ~1 rows (aproximadamente)
 INSERT INTO `about_company` (`id`, `title`, `content`, `image`, `created_at`, `updated_at`) VALUES
 	(1, 'Sobre a Nossa Empresa', 'Conteúdo inicial sobre a empresa.', NULL, '2026-05-12 18:56:32', '2026-05-12 18:56:32');
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `banners` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela vanherp.banners: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela vanherp.banners: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela vanherp.categories
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -260,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `partners` (
   KEY `partners_is_active_index` (`is_active`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela vanherp.partners: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela vanherp.partners: ~3 rows (aproximadamente)
 INSERT INTO `partners` (`id`, `name`, `role`, `bio`, `email`, `mobile`, `priority`, `is_active`, `logo`, `link`, `created_at`, `updated_at`) VALUES
 	(1, 'JOÃO HELIO FRUMENTO', 'Senior in-house surveyor / handler.', 'Is a Master Mariner, holds a BSc (Hons) degree in Maritime Studies, having served 5 years at sea as Navigating and Deck Officer on General Cargo and Bulk-Carrier vessels.\r\nHandles all types of P&I casualties, mainly involving environmental pollution; collisions; casualties; property damage; general average; draft surveys; cargo loading and discharging monitoring; sealing and unsealing of hatches and commodity grading.\r\nJoão Frumento is a qualified Master Mariner and Agricultural Commodity Grader accredited by the Brazilian Ministry of Agriculture, being a Category G Professional Member of GAFTA (The Grain and Feed Trade Association).', 'frumento@pandi-png.com.br', '+55 41 99978-2564', 2, 1, 'team/TtffEbT3ET91XICpYmAgRhdWaPtxOGOW1cHolUyD.jpg', NULL, '2026-05-12 18:50:24', '2026-05-12 18:52:56'),
 	(2, 'Abilio Abreu', 'Senior Handler / In-House Lawyer.', 'Has a degree in law and joined the company in 2000. \r\nHandles matters involving crew and shore personnel medical assistance; repatriation of crew members in case of death; stowaways; Customs, Immigration, Health and Navy Authorities’ regulations; cargo claims and containerized cargo.', 'abreu@pandi-png.com.br', '+55 41 99903-9631', 1, 1, 'team/LnMuhMXY1rLvKoJ3tfDlQaJqyT9bDqzR8CnDDxZQ.jpg', NULL, '2026-05-12 18:51:52', '2026-05-12 18:51:52'),
