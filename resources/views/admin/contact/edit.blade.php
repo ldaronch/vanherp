@@ -55,33 +55,15 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-50">
                 <div class="md:col-span-2">
                     <label for="address" class="block text-sm font-bold text-on-surface-variant mb-2">Endereço do Escritório</label>
-                    <input type="text" name="address" id="address" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('address', $contact->address) }}">
-                </div>
-                <div>
-                    <label for="city" class="block text-sm font-bold text-on-surface-variant mb-2">Cidade</label>
-                    <input type="text" name="city" id="city" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('city', $contact->city) }}">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label for="state" class="block text-sm font-bold text-on-surface-variant mb-2">Estado</label>
-                        <input type="text" name="state" id="state" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('state', $contact->state) }}">
-                    </div>
-                    <div>
-                        <label for="zip_code" class="block text-sm font-bold text-on-surface-variant mb-2">CEP</label>
-                        <input type="text" name="zip_code" id="zip_code" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('zip_code', $contact->zip_code) }}">
-                    </div>
+                    <textarea name="address" id="address" rows="3" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all">{{ old('address', $contact->address) }}</textarea>
                 </div>
                 <div class="md:col-span-2">
                     <label for="mailing_address" class="block text-sm font-bold text-on-surface-variant mb-2">Endereço de Correspondência</label>
-                    <input type="text" name="mailing_address" id="mailing_address" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('mailing_address', $contact->mailing_address) }}">
+                    <textarea name="mailing_address" id="mailing_address" rows="3" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all">{{ old('mailing_address', $contact->mailing_address) }}</textarea>
                 </div>
             </div>
 
             <div class="space-y-4 pt-4 border-t border-slate-50">
-                <div>
-                    <label for="working_hours" class="block text-sm font-bold text-on-surface-variant mb-2">Horário de Funcionamento</label>
-                    <input type="text" name="working_hours" id="working_hours" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('working_hours', $contact->working_hours) }}" placeholder="Ex: Seg a Sex das 08:00 às 18:00">
-                </div>
                 <div>
                     <label for="copyright_text" class="block text-sm font-bold text-on-surface-variant mb-2">Texto de Copyright (Rodapé)</label>
                     <input type="text" name="copyright_text" id="copyright_text" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('copyright_text', $contact->copyright_text) }}" placeholder="Ex: © 2026 Nome da Empresa. Todos os direitos reservados.">

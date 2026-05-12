@@ -14,7 +14,7 @@
         </a>
     </header>
 
-    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 max-w-2xl mx-auto">
+    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 w-full max-w-none">
         <form action="{{ route('admin.categories.store') }}" method="POST" class="space-y-6">
             @csrf
             <div>

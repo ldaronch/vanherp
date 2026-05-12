@@ -9,5 +9,9 @@ class Port extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'location', 'description', 'image'];
+    protected $fillable = ['name', 'url', 'is_active', 'location', 'description', 'image'];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 }

@@ -9,5 +9,9 @@ class Content extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'subtitle', 'text', 'image', 'section'];
+    protected $fillable = ['primary_text', 'title', 'subtitle', 'text', 'image', 'section', 'is_active'];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 }

@@ -6,13 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Port;
-use Illuminate\Support\Facades\Storage;
 
 class PortController extends Controller
 {
     public function index()
     {
-        $ports = Port::latest()->get();
+        $ports = Port::query()->orderByDesc('created_at')->get();
         return view('admin.ports.index', compact('ports'));
     }
 
@@ -25,15 +24,11 @@ class PortController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'location' => 'nullable',
-            'description' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'url' => 'nullable|url',
+            'is_active' => 'nullable|boolean',
         ]);
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('ports', 'public');
-            $validated['image'] = $path;
-        }
+        $validated['is_active'] = (bool) ($request->boolean('is_active'));
 
         Port::create($validated);
         return redirect()->route('admin.ports.index')->with('success', 'Porto cadastrado com sucesso!');
@@ -48,28 +43,24 @@ class PortController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'location' => 'nullable',
-            'description' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'url' => 'nullable|url',
+            'is_active' => 'nullable|boolean',
         ]);
 
-        if ($request->hasFile('image')) {
-            if ($port->image) {
-                Storage::disk('public')->delete($port->image);
-            }
-            $path = $request->file('image')->store('ports', 'public');
-            $validated['image'] = $path;
-        }
+        $validated['is_active'] = (bool) ($request->boolean('is_active'));
 
         $port->update($validated);
         return redirect()->route('admin.ports.index')->with('success', 'Porto atualizado com sucesso!');
     }
 
+    public function toggle(Port $port)
+    {
+        $port->update(['is_active' => !$port->is_active]);
+        return redirect()->route('admin.ports.index')->with('success', 'Status do porto atualizado com sucesso!');
+    }
+
     public function destroy(Port $port)
     {
-        if ($port->image) {
-            Storage::disk('public')->delete($port->image);
-        }
         $port->delete();
         return redirect()->route('admin.ports.index')->with('success', 'Porto removido com sucesso!');
     }

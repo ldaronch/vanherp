@@ -14,28 +14,32 @@
         </a>
     </header>
 
-    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 max-w-4xl mx-auto">
-        <form action="{{ route('admin.ports.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 w-full max-w-none">
+        <form action="{{ route('admin.ports.store') }}" method="POST" class="space-y-6">
             @csrf
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label for="name" class="block text-sm font-bold text-on-surface-variant mb-2">Nome do Porto</label>
-                    <input type="text" name="name" id="name" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('name') }}" required placeholder="Ex: Porto de Santos">
-                    @error('name') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
-                </div>
-                <div>
-                    <label for="location" class="block text-sm font-bold text-on-surface-variant mb-2">Localização (Cidade/Estado)</label>
-                    <input type="text" name="location" id="location" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('location') }}" placeholder="Ex: Santos, SP">
-                </div>
-            </div>
             <div>
-                <label for="description" class="block text-sm font-bold text-on-surface-variant mb-2">Descrição / Informações</label>
-                <textarea name="description" id="description" rows="4" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Detalhes sobre a atuação no porto...">{{ old('description') }}</textarea>
+                <label for="name" class="block text-sm font-bold text-on-surface-variant mb-2">Título</label>
+                <input type="text" name="name" id="name" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('name') }}" required>
+                @error('name') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
             </div>
+
             <div>
-                <label for="image" class="block text-sm font-bold text-on-surface-variant mb-2">Imagem Ilustrativa</label>
-                <input type="file" name="image" id="image" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
-                @error('image') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
+                <label for="url" class="block text-sm font-bold text-on-surface-variant mb-2">URL</label>
+                <input type="url" name="url" id="url" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('url') }}" placeholder="https://">
+                @error('url') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
+            </div>
+
+            <div class="flex items-center justify-between gap-6 bg-surface-container-low px-5 py-4 rounded-xl border border-slate-100">
+                <div>
+                    <div class="text-sm font-bold text-on-surface">Ativo</div>
+                    <div class="text-xs text-on-surface-variant">Exibir este porto na página de Ports.</div>
+                </div>
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="checkbox" name="is_active" value="1" class="sr-only peer" {{ old('is_active', true) ? 'checked' : '' }}>
+                    <div class="relative w-12 h-7 bg-slate-300 rounded-full peer peer-checked:bg-primary transition-colors">
+                        <div class="absolute top-1 left-1 w-5 h-5 bg-white rounded-full transition-transform peer-checked:translate-x-5"></div>
+                    </div>
+                </label>
             </div>
             <div class="pt-6 border-t border-slate-100 flex justify-end">
                 <button type="submit" class="bg-primary text-white px-10 py-4 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg active:scale-95 duration-150">

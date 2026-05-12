@@ -12,7 +12,11 @@ class PartnerController extends Controller
 {
     public function index()
     {
-        $partners = Partner::latest()->get();
+        $partners = Partner::query()
+            ->orderByDesc('priority')
+            ->orderBy('name')
+            ->get();
+
         return view('admin.partners.index', compact('partners'));
     }
 
@@ -24,18 +28,25 @@ class PartnerController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
-            'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|string|max:255',
+            'role' => 'nullable|string|max:255',
+            'bio' => 'nullable|string',
+            'email' => 'nullable|email|max:255',
+            'mobile' => 'nullable|string|max:50',
+            'priority' => 'nullable|integer',
+            'is_active' => 'nullable|boolean',
+            'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'link' => 'nullable|url',
         ]);
 
         if ($request->hasFile('logo')) {
-            $path = $request->file('logo')->store('partners', 'public');
+            $path = $request->file('logo')->store('team', 'public');
             $validated['logo'] = $path;
         }
 
+        $validated['is_active'] = (bool) $request->boolean('is_active');
         Partner::create($validated);
-        return redirect()->route('admin.partners.index')->with('success', 'Parceiro cadastrado com sucesso!');
+        return redirect()->route('admin.partners.index')->with('success', 'Membro cadastrado com sucesso!');
     }
 
     public function edit(Partner $partner)
@@ -46,8 +57,14 @@ class PartnerController extends Controller
     public function update(Request $request, Partner $partner)
     {
         $validated = $request->validate([
-            'name' => 'required',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|string|max:255',
+            'role' => 'nullable|string|max:255',
+            'bio' => 'nullable|string',
+            'email' => 'nullable|email|max:255',
+            'mobile' => 'nullable|string|max:50',
+            'priority' => 'nullable|integer',
+            'is_active' => 'nullable|boolean',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'link' => 'nullable|url',
         ]);
 
@@ -55,12 +72,20 @@ class PartnerController extends Controller
             if ($partner->logo) {
                 Storage::disk('public')->delete($partner->logo);
             }
-            $path = $request->file('logo')->store('partners', 'public');
+            $path = $request->file('logo')->store('team', 'public');
             $validated['logo'] = $path;
         }
 
+        $validated['is_active'] = (bool) $request->boolean('is_active');
         $partner->update($validated);
-        return redirect()->route('admin.partners.index')->with('success', 'Parceiro atualizado com sucesso!');
+        return redirect()->route('admin.partners.index')->with('success', 'Membro atualizado com sucesso!');
+    }
+
+    public function toggle(Partner $partner)
+    {
+        $partner->update(['is_active' => !$partner->is_active]);
+
+        return redirect()->route('admin.partners.index')->with('success', 'Status atualizado com sucesso!');
     }
 
     public function destroy(Partner $partner)
@@ -69,6 +94,6 @@ class PartnerController extends Controller
             Storage::disk('public')->delete($partner->logo);
         }
         $partner->delete();
-        return redirect()->route('admin.partners.index')->with('success', 'Parceiro removido com sucesso!');
+        return redirect()->route('admin.partners.index')->with('success', 'Membro removido com sucesso!');
     }
 }

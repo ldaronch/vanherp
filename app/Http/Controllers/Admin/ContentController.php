@@ -12,7 +12,10 @@ class ContentController extends Controller
 {
     public function index()
     {
-        $contents = Content::latest()->get();
+        $contents = Content::query()
+            ->where('section', 'port_banner')
+            ->latest()
+            ->get();
         return view('admin.contents.index', compact('contents'));
     }
 
@@ -24,11 +27,12 @@ class ContentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'primary_text' => 'nullable|string|max:255',
             'title' => 'required',
-            'subtitle' => 'nullable',
+            'subtitle' => 'nullable|string|max:255',
             'text' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'section' => 'nullable',
+            'is_active' => 'boolean',
         ]);
 
         if ($request->hasFile('image')) {
@@ -36,6 +40,8 @@ class ContentController extends Controller
             $validated['image'] = $path;
         }
 
+        $validated['section'] = 'port_banner';
+        $validated['is_active'] = (bool)($validated['is_active'] ?? false);
         Content::create($validated);
         return redirect()->route('admin.contents.index')->with('success', 'Conteúdo cadastrado com sucesso!');
     }
@@ -48,11 +54,12 @@ class ContentController extends Controller
     public function update(Request $request, Content $content)
     {
         $validated = $request->validate([
+            'primary_text' => 'nullable|string|max:255',
             'title' => 'required',
-            'subtitle' => 'nullable',
+            'subtitle' => 'nullable|string|max:255',
             'text' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'section' => 'nullable',
+            'is_active' => 'boolean',
         ]);
 
         if ($request->hasFile('image')) {
@@ -63,6 +70,8 @@ class ContentController extends Controller
             $validated['image'] = $path;
         }
 
+        $validated['section'] = 'port_banner';
+        $validated['is_active'] = (bool)($validated['is_active'] ?? false);
         $content->update($validated);
         return redirect()->route('admin.contents.index')->with('success', 'Conteúdo atualizado com sucesso!');
     }
@@ -74,5 +83,11 @@ class ContentController extends Controller
         }
         $content->delete();
         return redirect()->route('admin.contents.index')->with('success', 'Conteúdo removido com sucesso!');
+    }
+
+    public function toggle(Content $content)
+    {
+        $content->update(['is_active' => !$content->is_active]);
+        return redirect()->route('admin.contents.index')->with('success', 'Status do slide atualizado com sucesso!');
     }
 }

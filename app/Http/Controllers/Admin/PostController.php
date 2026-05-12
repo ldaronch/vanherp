@@ -27,19 +27,32 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
+            'date' => 'required|date',
             'title' => 'required',
-            'slug' => 'required|unique:posts',
+            'header_line' => 'nullable|string|max:255',
+            'slug' => 'nullable|unique:posts,slug',
             'content' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'is_published' => 'boolean',
+            'is_featured' => 'boolean',
         ]);
+
+        $validated['slug'] = $validated['slug'] ?? Str::slug($validated['title']);
+        $baseSlug = $validated['slug'];
+        $suffix = 2;
+        while (Post::query()->where('slug', $validated['slug'])->exists()) {
+            $validated['slug'] = $baseSlug.'-'.$suffix;
+            $suffix++;
+        }
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('posts', 'public');
             $validated['image'] = $path;
         }
 
+        $validated['is_published'] = (bool)($validated['is_published'] ?? false);
+        $validated['is_featured'] = (bool)($validated['is_featured'] ?? false);
         Post::create($validated);
         return redirect()->route('admin.posts.index')->with('success', 'Notícia cadastrada com sucesso!');
     }
@@ -53,13 +66,24 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $validated = $request->validate([
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
+            'date' => 'required|date',
             'title' => 'required',
-            'slug' => 'required|unique:posts,slug,' . $post->id,
+            'header_line' => 'nullable|string|max:255',
+            'slug' => 'nullable|unique:posts,slug,' . $post->id,
             'content' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'is_published' => 'boolean',
+            'is_featured' => 'boolean',
         ]);
+
+        $validated['slug'] = $validated['slug'] ?? Str::slug($validated['title']);
+        $baseSlug = $validated['slug'];
+        $suffix = 2;
+        while (Post::query()->where('slug', $validated['slug'])->where('id', '!=', $post->id)->exists()) {
+            $validated['slug'] = $baseSlug.'-'.$suffix;
+            $suffix++;
+        }
 
         if ($request->hasFile('image')) {
             if ($post->image) {
@@ -69,8 +93,16 @@ class PostController extends Controller
             $validated['image'] = $path;
         }
 
+        $validated['is_published'] = (bool)($validated['is_published'] ?? false);
+        $validated['is_featured'] = (bool)($validated['is_featured'] ?? false);
         $post->update($validated);
         return redirect()->route('admin.posts.index')->with('success', 'Notícia atualizada com sucesso!');
+    }
+
+    public function toggle(Post $post)
+    {
+        $post->update(['is_published' => !$post->is_published]);
+        return redirect()->route('admin.posts.index')->with('success', 'Status da notícia atualizado com sucesso!');
     }
 
     public function destroy(Post $post)

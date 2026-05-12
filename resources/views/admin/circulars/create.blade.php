@@ -19,7 +19,7 @@
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">
-                    <label for="title" class="block text-sm font-bold text-on-surface-variant mb-2">Título da Circular</label>
+                    <label for="title" class="block text-sm font-bold text-on-surface-variant mb-2">Título 2 (Seção)</label>
                     <input type="text" name="title" id="title" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('title') }}" required placeholder="Ex: Circular 001/2024 - Normas de Segurança">
                     @error('title') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
                 </div>
@@ -28,14 +28,14 @@
                     <input type="date" name="date" id="date" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('date') }}">
                 </div>
                 <div>
-                    <label for="attachments" class="block text-sm font-bold text-on-surface-variant mb-2">Anexar Arquivos para Download</label>
-                    <input type="file" name="attachments[]" id="attachments" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" multiple>
-                    <p class="mt-1 text-[10px] text-slate-400 font-medium">Você pode selecionar vários arquivos (PDF, DOC, XLS, Imagens).</p>
+                    <label for="attachments" class="block text-sm font-bold text-on-surface-variant mb-2">Arquivos PDF para Download</label>
+                    <input type="file" name="attachments[]" id="attachments" accept=".pdf,application/pdf" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" multiple>
+                    <p class="mt-1 text-[10px] text-slate-400 font-medium">Você pode selecionar vários arquivos PDF.</p>
                     @error('attachments.*') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
                 </div>
             </div>
             <div>
-                <label for="description" class="block text-sm font-bold text-on-surface-variant mb-2">Breve Descrição (Opcional)</label>
+                <label for="description" class="block text-sm font-bold text-on-surface-variant mb-2">Texto Descritivo (Opcional)</label>
                 <textarea name="description" id="description" rows="3" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Resumo do conteúdo do documento...">{{ old('description') }}</textarea>
             </div>
             <div class="pt-6 border-t border-slate-100 flex justify-end">

@@ -31,6 +31,13 @@
                     <div class="flex justify-between items-center mt-auto pt-4 border-t border-slate-50">
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ordem: {{ $banner->order }}</span>
                         <div class="flex gap-2">
+                            <form action="{{ route('admin.banners.toggle', $banner) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="p-2 {{ $banner->is_active ? 'text-amber-700 hover:bg-amber-50' : 'text-emerald-700 hover:bg-emerald-50' }} rounded-lg transition-colors" title="{{ $banner->is_active ? 'Inativar' : 'Ativar' }}">
+                                    <span class="material-symbols-outlined text-sm">{{ $banner->is_active ? 'toggle_off' : 'toggle_on' }}</span>
+                                </button>
+                            </form>
                             <a href="{{ route('admin.banners.edit', $banner) }}" class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors">
                                 <span class="material-symbols-outlined text-sm">edit</span>
                             </a>

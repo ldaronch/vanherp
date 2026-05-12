@@ -23,8 +23,8 @@
                 @error('title') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
             </div>
             <div>
-                <label for="file_path" class="block text-sm font-bold text-on-surface-variant mb-2">Arquivo (PDF, DOC)</label>
-                <input type="file" name="file_path" id="file_path" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" required>
+                <label for="file_path" class="block text-sm font-bold text-on-surface-variant mb-2">Arquivo (PDF)</label>
+                <input type="file" name="file_path" id="file_path" accept=".pdf,application/pdf" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" required>
                 @error('file_path') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
             </div>
             <div>

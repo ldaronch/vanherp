@@ -28,7 +28,7 @@ class CircularController extends Controller
             'title' => 'required',
             'date' => 'nullable|date',
             'description' => 'nullable',
-            'attachments.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,png,jpg,jpeg|max:10240',
+            'attachments.*' => 'nullable|file|mimes:pdf|max:10240',
         ]);
 
         $circular = Circular::create($validated);
@@ -58,7 +58,7 @@ class CircularController extends Controller
             'title' => 'required',
             'date' => 'nullable|date',
             'description' => 'nullable',
-            'attachments.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,png,jpg,jpeg|max:10240',
+            'attachments.*' => 'nullable|file|mimes:pdf|max:10240',
         ]);
 
         $circular->update($validated);

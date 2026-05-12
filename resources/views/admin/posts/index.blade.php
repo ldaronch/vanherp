@@ -19,6 +19,7 @@
             <thead>
                 <tr class="bg-slate-50 border-b border-slate-100">
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Imagem</th>
+                    <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Data</th>
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Título</th>
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Categoria</th>
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Status</th>
@@ -37,11 +38,14 @@
                                 </div>
                             @endif
                         </td>
+                        <td class="px-6 py-4 text-sm text-on-surface-variant font-semibold">
+                            {{ optional($post->date)->format('d/m/Y') }}
+                        </td>
                         <td class="px-6 py-4 font-semibold text-on-surface">
                             {{ Str::limit($post->title, 40) }}
                         </td>
                         <td class="px-6 py-4">
-                            <span class="text-xs font-bold text-secondary uppercase">{{ $post->category->name }}</span>
+                            <span class="text-xs font-bold text-secondary uppercase">{{ optional($post->category)->name ?: 'Sem categoria' }}</span>
                         </td>
                         <td class="px-6 py-4">
                             <span class="px-3 py-1 rounded-full text-[10px] font-bold {{ $post->is_published ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700' }}">
@@ -49,6 +53,13 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 text-right space-x-2">
+                            <form action="{{ route('admin.posts.toggle', $post) }}" method="POST" class="inline-block">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="inline-flex items-center px-3 py-2 rounded-lg text-xs font-bold {{ $post->is_published ? 'text-amber-700 bg-amber-100 hover:bg-amber-200' : 'text-emerald-700 bg-emerald-100 hover:bg-emerald-200' }}">
+                                    {{ $post->is_published ? 'Desativar' : 'Ativar' }}
+                                </button>
+                            </form>
                             <a href="{{ route('admin.posts.edit', $post) }}" class="inline-flex items-center p-2 text-primary hover:bg-primary/10 rounded-lg">
                                 <span class="material-symbols-outlined text-sm">edit</span>
                             </a>
@@ -63,7 +74,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-6 py-12 text-center text-on-surface-variant italic">Nenhuma notícia cadastrada.</td>
+                        <td colspan="6" class="px-6 py-12 text-center text-on-surface-variant italic">Nenhuma notícia cadastrada.</td>
                     </tr>
                 @endforelse
             </tbody>

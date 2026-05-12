@@ -34,12 +34,8 @@ class ContactSettingController extends Controller
             'whatsapp' => 'nullable',
             'emergency_phone' => 'nullable',
             'address' => 'nullable',
-            'city' => 'nullable',
-            'state' => 'nullable',
-            'zip_code' => 'nullable',
             'mailing_address' => 'nullable',
             'maps_iframe' => 'nullable',
-            'working_hours' => 'nullable',
             'copyright_text' => 'nullable',
         ]);
 

@@ -25,7 +25,7 @@ class GuidelineController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required',
-            'file_path' => 'required|file|mimes:pdf,doc,docx|max:5120',
+            'file_path' => 'required|file|mimes:pdf|max:5120',
             'description' => 'nullable',
         ]);
 
@@ -47,7 +47,7 @@ class GuidelineController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required',
-            'file_path' => 'nullable|file|mimes:pdf,doc,docx|max:5120',
+            'file_path' => 'nullable|file|mimes:pdf|max:5120',
             'description' => 'nullable',
         ]);
 

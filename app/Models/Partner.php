@@ -9,5 +9,19 @@ class Partner extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'logo', 'link'];
+    protected $fillable = [
+        'name',
+        'role',
+        'bio',
+        'email',
+        'mobile',
+        'priority',
+        'is_active',
+        'logo',
+        'link',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 }

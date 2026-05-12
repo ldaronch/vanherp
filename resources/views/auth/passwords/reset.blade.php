@@ -12,7 +12,7 @@
     <link rel="manifest" href="{{ asset('site.webmanifest') }}"/>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200..700" rel="stylesheet">
 
     <script>
@@ -32,7 +32,7 @@
                         "secondary-fixed": "#FFE08A"
                     },
                     fontFamily: {
-                        "body": ["Inter"]
+                        "body": ["Exo 2"]
                     }
                 },
             },

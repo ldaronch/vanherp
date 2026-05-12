@@ -1,0 +1,22 @@
+body {
+  color: #29344D;
+}
+body header #phoneCalls {
+  text-align: right;
+}
+body header #phoneCalls .labelEmergency {
+  font-size: 0.85rem;
+  font-weight: 400;
+  border-bottom: solid 2px #FFCC00;
+  padding: 3px;
+  margin-bottom: 3px;
+}
+body header #phoneCalls .labelEmergency i {
+  margin-right: 5px;
+}
+body header #phoneCalls .phoneShow {
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.1rem;
+  letter-spacing: 1px;
+}/*# sourceMappingURL=main.css.map */

@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}"/>
     <link rel="manifest" href="{{ asset('site.webmanifest') }}"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <script id="tailwind-config">
         tailwind.config = {
@@ -47,9 +47,9 @@
                         "full": "9999px"
                     },
                     "fontFamily": {
-                        "headline": ["Inter"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
+                        "headline": ["Exo 2"],
+                        "body": ["Exo 2"],
+                        "label": ["Exo 2"]
                     }
                 },
             },
