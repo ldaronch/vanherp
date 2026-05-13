@@ -111,7 +111,7 @@
 
         @if(!empty($pageBanner?->image))
             <div class="w-full h-[220px] md:h-[300px] bg-slate-200 overflow-hidden">
-                <img src="{{ asset('storage/'.$pageBanner->image) }}" alt="Page banner" class="w-full h-full object-cover">
+                <img src="{{ route('media', ['path' => $pageBanner->image]) }}" alt="Page banner" class="w-full h-full object-cover">
             </div>
         @endif
 

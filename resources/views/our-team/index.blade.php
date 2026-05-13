@@ -19,7 +19,7 @@
                         <div class="md:col-span-4">
                             <div class="w-full aspect-square rounded-2xl overflow-hidden bg-slate-200">
                                 @if(!empty($member->logo))
-                                    <img src="{{ asset('storage/'.$member->logo) }}" alt="{{ $member->name }}" class="w-full h-full object-cover">
+                                    <img src="{{ route('media', ['path' => $member->logo]) }}" alt="{{ $member->name }}" class="w-full h-full object-cover">
                                 @endif
                             </div>
                         </div>

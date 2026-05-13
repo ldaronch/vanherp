@@ -115,7 +115,7 @@
                         @if(isset($banners) && $banners->count())
                             @foreach($banners as $index => $banner)
                                 <a href="{{ $banner->link ?: '#' }}" target="{{ $banner->link ? '_blank' : '_self' }}" rel="noopener" class="carousel-slide relative inset-0 opacity-0 transition-opacity duration-700 ease-in-out {{ $index === 0 ? 'opacity-100' : '' }}" data-slide="{{ $index }}">
-                                    <img src="{{ asset('storage/'.$banner->image) }}" alt="{{ $banner->title ?: 'Banner' }}" class="w-full h-auto object-cover">
+                                    <img src="{{ route('media', ['path' => $banner->image]) }}" alt="{{ $banner->title ?: 'Banner' }}" class="w-full h-auto object-cover">
                                     <div class="absolute inset-x-0 bottom-16 px-6">
                                         <div class="max-w-6xl mx-auto">
                                             @if($banner->title)
@@ -173,7 +173,7 @@
                         <div class="relative w-full h-[200px] md:h-[660px]">
                             @forelse(($portsBanners ?? collect())->filter(fn($p) => !empty($p->image)) as $index => $banner)
                                 <div class="port-slide absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out {{ $index === 0 ? 'opacity-100' : '' }}" data-port-slide="{{ $index }}">
-                                    <img src="{{ asset('storage/'.$banner->image) }}" alt="{{ $banner->title }}" class="w-full h-auto object-cover">
+                                    <img src="{{ route('media', ['path' => $banner->image]) }}" alt="{{ $banner->title }}" class="w-full h-auto object-cover">
                                 </div>
                             @empty
                                 <div class="port-slide absolute inset-0 opacity-100" data-port-slide="0">
@@ -222,7 +222,7 @@
                                     <article data-slide-item class="snap-start shrink-0 w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
                                     <a href="{{ route('circulars-guidelines.index') }}" class="block h-44 bg-slate-100" aria-label="Ler notícia: {{ $post->title }}">
                                         @if($post->image)
-                                            <img src="{{ asset('storage/'.$post->image) }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
+                                            <img src="{{ route('media', ['path' => $post->image]) }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
                                         @else
                                             <div class="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200"></div>
                                         @endif

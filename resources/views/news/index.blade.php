@@ -18,7 +18,7 @@
                 <article class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
                     <a href="{{ route('news.show', $post->slug) }}" class="block aspect-[16/9] bg-slate-100">
                         @if($post->image)
-                            <img src="{{ asset('storage/'.$post->image) }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
+                            <img src="{{ route('media', ['path' => $post->image]) }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
                         @else
                             <div class="w-full h-full bg-slate-200"></div>
                         @endif

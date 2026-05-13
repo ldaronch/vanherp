@@ -18,7 +18,7 @@
 
     <div class="w-full">
         @if(!empty($about?->image))
-            <img src="{{ asset('storage/'.$about->image) }}" alt="{{ $about->title ?? 'History' }}" class="w-full h-[360px] md:h-[520px] object-cover">
+            <img src="{{ route('media', ['path' => $about->image]) }}" alt="{{ $about->title ?? 'History' }}" class="w-full h-[360px] md:h-[520px] object-cover">
         @else
             <div class="w-full h-[360px] md:h-[520px] bg-slate-200"></div>
         @endif

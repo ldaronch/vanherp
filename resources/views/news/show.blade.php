@@ -15,7 +15,7 @@
         <div class="mt-6 bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
             @if($post->image)
                 <div class="h-72 bg-slate-100">
-                    <img src="{{ asset('storage/'.$post->image) }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
+                    <img src="{{ route('media', ['path' => $post->image]) }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
                 </div>
             @endif
 

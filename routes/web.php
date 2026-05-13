@@ -69,6 +69,20 @@ Route::get('storage/{path}', function (string $path) {
     return response()->file(Storage::disk('public')->path($path));
 })->where('path', '.*')->name('storage.fallback');
 
+Route::get('media/{path}', function (string $path) {
+    if (preg_match('#(^|/)\.\.(?:/|$)#', $path)) {
+        abort(404);
+    }
+
+    $path = ltrim($path, '/');
+
+    if (!Storage::disk('public')->exists($path)) {
+        abort(404);
+    }
+
+    return response()->file(Storage::disk('public')->path($path));
+})->where('path', '.*')->name('media');
+
 Route::get('/', function () {
     $settings = ContactSetting::firstOrCreate([], [
         'site_title' => 'Vanherp',

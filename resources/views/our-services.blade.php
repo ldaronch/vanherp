@@ -68,7 +68,7 @@
 
         <div class="mt-10 w-full">
             @if(!empty($page?->image))
-                <img src="{{ asset('storage/'.$page->image) }}" alt="{{ $page->title ?? 'Our services' }}" class="w-full h-auto object-cover">
+                <img src="{{ route('media', ['path' => $page->image]) }}" alt="{{ $page->title ?? 'Our services' }}" class="w-full h-auto object-cover">
             @endif
         </div>
     </div>
