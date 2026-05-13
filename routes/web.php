@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,20 @@ Route::get('logo.svg', function () {
         'Content-Type' => 'image/svg+xml',
     ]);
 })->name('site.logo');
+
+Route::get('storage/{path}', function (string $path) {
+    if (preg_match('#(^|/)\.\.(?:/|$)#', $path)) {
+        abort(404);
+    }
+
+    $path = ltrim($path, '/');
+
+    if (!Storage::disk('public')->exists($path)) {
+        abort(404);
+    }
+
+    return response()->file(Storage::disk('public')->path($path));
+})->where('path', '.*')->name('storage.fallback');
 
 Route::get('/', function () {
     $settings = ContactSetting::firstOrCreate([], [
