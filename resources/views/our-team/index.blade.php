@@ -11,9 +11,6 @@
         </nav>
 
         <h1 class="mt-4 inline-block text-4xl md:text-5xl font-black tracking-tight text-slate-900 py-[2px] border-b-2 border-[#C5A573]">Our team</h1>
-        <p class="mt-4 text-slate-600 leading-relaxed">
-            Conheça os membros do nosso time.
-        </p>
 
         <div class="mt-10 space-y-10">
             @forelse($members as $member)
@@ -38,12 +35,12 @@
                             @endif
 
                             @if(!empty($member->bio))
-                                <div class="mt-4 text-slate-600 leading-relaxed whitespace-pre-line">
+                                <div class="text-slate-600 leading-relaxed ">
                                     {{ $member->bio }}
                                 </div>
                             @endif
 
-                            <div class="mt-5 space-y-1">
+                            <div class="mt-1 space-y-1">
                                 @if(!empty($member->email))
                                     <div class="text-slate-900 font-bold">
                                         e-mail:

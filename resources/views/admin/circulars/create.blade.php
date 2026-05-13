@@ -14,10 +14,10 @@
         </a>
     </header>
 
-    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 max-w-4xl mx-auto">
-        <form action="{{ route('admin.circulars.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 w-full flex-1 flex flex-col">
+        <form action="{{ route('admin.circulars.store') }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-6 flex-1">
             @csrf
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
                 <div class="md:col-span-2">
                     <label for="title" class="block text-sm font-bold text-on-surface-variant mb-2">Título 2 (Seção)</label>
                     <input type="text" name="title" id="title" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('title') }}" required placeholder="Ex: Circular 001/2024 - Normas de Segurança">
@@ -30,21 +30,20 @@
                 <div>
                     <label for="url" class="block text-sm font-bold text-on-surface-variant mb-2">Link (Opcional)</label>
                     <input type="url" name="url" id="url" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('url') }}" placeholder="https://...">
-                    <p class="mt-1 text-[10px] text-slate-400 font-medium">Informe um link ou envie PDFs.</p>
+                    <p class="mt-1 text-[10px] text-slate-400 font-medium">Informe um link ou envie um PDF.</p>
                     @error('url') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
                 </div>
                 <div>
-                    <label for="attachments" class="block text-sm font-bold text-on-surface-variant mb-2">Arquivos PDF para Download</label>
-                    <input type="file" name="attachments[]" id="attachments" accept=".pdf,application/pdf" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" multiple>
-                    <p class="mt-1 text-[10px] text-slate-400 font-medium">Você pode selecionar vários arquivos PDF.</p>
-                    @error('attachments.*') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
+                    <label for="file_path" class="block text-sm font-bold text-on-surface-variant mb-2">Arquivo (PDF)</label>
+                    <input type="file" name="file_path" id="file_path" accept=".pdf,application/pdf" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                    @error('file_path') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
                 </div>
             </div>
             <div>
                 <label for="description" class="block text-sm font-bold text-on-surface-variant mb-2">Texto Descritivo (Opcional)</label>
                 <textarea name="description" id="description" rows="3" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Resumo do conteúdo do documento...">{{ old('description') }}</textarea>
             </div>
-            <div class="pt-6 border-t border-slate-100 flex justify-end">
+            <div class="pt-6 border-t border-slate-100 flex justify-end mt-auto">
                 <button type="submit" class="bg-primary text-white px-10 py-4 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg active:scale-95 duration-150">
                     Cadastrar Circular
                 </button>

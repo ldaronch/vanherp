@@ -186,17 +186,15 @@
 
             <!-- Circulars & Guidelines -->
             <div class="pt-2">
-                <button type="button" data-menu-toggle="circulars-guidelines" aria-expanded="{{ (request()->routeIs('admin.circulars.*') || request()->routeIs('admin.guidelines.*') || request()->routeIs('admin.circular-guidelines.*')) ? 'true' : 'false' }}" class="w-full flex items-center justify-between px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-all duration-200">
+                <button type="button" data-menu-toggle="circulars-guidelines" aria-expanded="{{ request()->routeIs('admin.circular-guidelines.*') ? 'true' : 'false' }}" class="w-full flex items-center justify-between px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-all duration-200">
                     <div class="flex items-center gap-3">
                         <span class="material-symbols-outlined">description</span>
                         <span>Circulars &amp; Guidelines</span>
                     </div>
-                    <span data-menu-chevron class="material-symbols-outlined text-sm transition-transform {{ (request()->routeIs('admin.circulars.*') || request()->routeIs('admin.guidelines.*') || request()->routeIs('admin.circular-guidelines.*')) ? 'rotate-180' : '' }}">expand_more</span>
+                    <span data-menu-chevron class="material-symbols-outlined text-sm transition-transform {{ request()->routeIs('admin.circular-guidelines.*') ? 'rotate-180' : '' }}">expand_more</span>
                 </button>
-                <div data-menu-panel="circulars-guidelines" class="pl-12 space-y-1 mt-1 {{ (request()->routeIs('admin.circulars.*') || request()->routeIs('admin.guidelines.*') || request()->routeIs('admin.circular-guidelines.*')) ? '' : 'hidden' }}">
-                    <a href="{{ route('admin.circulars.index') }}" class="block py-1 text-sm {{ request()->routeIs('admin.circulars.*') ? 'text-primary font-bold' : 'text-slate-600 hover:text-primary' }}">Circulars</a>
-                    <a href="{{ route('admin.guidelines.index') }}" class="block py-1 text-sm {{ request()->routeIs('admin.guidelines.*') ? 'text-primary font-bold' : 'text-slate-600 hover:text-primary' }}">Guidelines</a>
-                    <a href="{{ route('admin.circular-guidelines.index') }}" class="block py-1 text-sm {{ request()->routeIs('admin.circular-guidelines.*') ? 'text-primary font-bold' : 'text-slate-600 hover:text-primary' }}">Página (Seções)</a>
+                <div data-menu-panel="circulars-guidelines" class="pl-12 space-y-1 mt-1 {{ request()->routeIs('admin.circular-guidelines.*') ? '' : 'hidden' }}">
+                    <a href="{{ route('admin.circular-guidelines.index') }}" class="block py-1 text-sm {{ request()->routeIs('admin.circular-guidelines.*') ? 'text-primary font-bold' : 'text-slate-600 hover:text-primary' }}">Seções da página</a>
                 </div>
             </div>
 

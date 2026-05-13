@@ -14,8 +14,8 @@
         </a>
     </header>
 
-    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 max-w-4xl mx-auto">
-        <form action="{{ route('admin.circulars.update', $circular) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 w-full flex-1 flex flex-col">
+        <form action="{{ route('admin.circulars.update', $circular) }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-6 flex-1">
             @csrf
             @method('PUT')
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -31,46 +31,31 @@
                 <div>
                     <label for="url" class="block text-sm font-bold text-on-surface-variant mb-2">Link (Opcional)</label>
                     <input type="url" name="url" id="url" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('url', $circular->url) }}" placeholder="https://...">
-                    <p class="mt-1 text-[10px] text-slate-400 font-medium">Se informar um link, os anexos serão removidos.</p>
+                    <p class="mt-1 text-[10px] text-slate-400 font-medium">Se informar um link, o PDF será removido.</p>
                     @error('url') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
                 </div>
                 <div>
-                    <label for="attachments" class="block text-sm font-bold text-on-surface-variant mb-2">Adicionar Novos PDFs</label>
-                    <input type="file" name="attachments[]" id="attachments" accept=".pdf,application/pdf" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" multiple>
-                    <p class="mt-1 text-[10px] text-slate-400 font-medium">Selecione novos arquivos PDF para adicionar à lista atual.</p>
-                    @error('attachments.*') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
+                    <label for="file_path" class="block text-sm font-bold text-on-surface-variant mb-2">Arquivo PDF (Deixe em branco para manter)</label>
+                    <input type="file" name="file_path" id="file_path" accept=".pdf,application/pdf" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                    @error('file_path') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
+                    @php
+                        $attachment = $circular->attachments->first();
+                    @endphp
+                    @if($attachment && !empty($attachment->file_path))
+                        <div class="mt-2 text-[10px] text-slate-400 font-bold uppercase tracking-widest">Arquivo atual cadastrado</div>
+                        <a href="{{ asset('storage/'.$attachment->file_path) }}" target="_blank" rel="noopener" class="mt-1 inline-flex items-center gap-2 text-xs font-semibold text-primary hover:brightness-110 transition-colors">
+                            <span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+                            <span class="truncate">{{ $attachment->original_name ?: 'Download' }}</span>
+                        </a>
+                    @endif
                 </div>
             </div>
 
-            @if($circular->attachments->count() > 0)
-                <div class="pt-4 border-t border-slate-50">
-                    <p class="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">Arquivos Anexados</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        @foreach($circular->attachments as $attachment)
-                            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-100">
-                                <div class="flex items-center gap-2 overflow-hidden">
-                                    <span class="text-secondary text-sm">
-                                        <i class="fa-solid fa-file-pdf"></i>
-                                    </span>
-                                    <span class="text-xs font-medium text-on-surface truncate">{{ $attachment->original_name }}</span>
-                                </div>
-                                <button type="button" onclick="if(confirm('Remover este anexo?')) document.getElementById('delete-attachment-{{ $attachment->id }}').submit()" class="text-red-500 hover:text-red-700 p-1">
-                                    <span class="material-symbols-outlined text-sm">close</span>
-                                </button>
-                                <form id="delete-attachment-{{ $attachment->id }}" action="{{ route('admin.circulars.attachments.destroy', $attachment) }}" method="POST" class="hidden">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
             <div>
                 <label for="description" class="block text-sm font-bold text-on-surface-variant mb-2">Texto Descritivo (Opcional)</label>
                 <textarea name="description" id="description" rows="3" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all">{{ old('description', $circular->description) }}</textarea>
             </div>
-            <div class="pt-6 border-t border-slate-100 flex justify-end">
+            <div class="pt-6 border-t border-slate-100 flex justify-end mt-auto">
                 <button type="submit" class="bg-primary text-white px-10 py-4 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg active:scale-95 duration-150">
                     Salvar Alterações
                 </button>

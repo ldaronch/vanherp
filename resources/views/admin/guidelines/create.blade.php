@@ -14,8 +14,8 @@
         </a>
     </header>
 
-    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 max-w-4xl mx-auto">
-        <form action="{{ route('admin.guidelines.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 w-full flex-1 flex flex-col">
+        <form action="{{ route('admin.guidelines.store') }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-6 flex-1">
             @csrf
             <div>
                 <label for="title" class="block text-sm font-bold text-on-surface-variant mb-2">Título da Diretriz</label>
@@ -37,7 +37,7 @@
                 <label for="description" class="block text-sm font-bold text-on-surface-variant mb-2">Descrição (Opcional)</label>
                 <textarea name="description" id="description" rows="3" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Breve resumo da diretriz...">{{ old('description') }}</textarea>
             </div>
-            <div class="pt-6 border-t border-slate-100 flex justify-end">
+            <div class="pt-6 border-t border-slate-100 flex justify-end mt-auto">
                 <button type="submit" class="bg-primary text-white px-10 py-4 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg active:scale-95 duration-150">
                     Cadastrar Diretriz
                 </button>

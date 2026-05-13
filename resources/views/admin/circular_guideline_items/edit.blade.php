@@ -14,8 +14,8 @@
         </a>
     </header>
 
-    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 w-full max-w-none">
-        <form action="{{ route('admin.circular-guidelines.items.update', [$section, $item]) }}" method="POST" class="space-y-6">
+    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 w-full flex-1 flex flex-col">
+        <form action="{{ route('admin.circular-guidelines.items.update', [$section, $item]) }}" method="POST" class="flex flex-col gap-6 flex-1">
             @csrf
             @method('PUT')
 
@@ -50,7 +50,7 @@
                 </label>
             </div>
 
-            <div class="pt-6 border-t border-slate-100 flex justify-end">
+            <div class="pt-6 border-t border-slate-100 flex justify-end mt-auto">
                 <button type="submit" class="bg-primary text-white px-10 py-4 rounded-xl font-bold hover:brightness-110 transition-colors shadow-lg active:scale-95 duration-150">
                     Salvar
                 </button>
@@ -58,4 +58,3 @@
         </form>
     </div>
 @endsection
-

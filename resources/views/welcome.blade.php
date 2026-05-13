@@ -24,7 +24,7 @@
                 <a href="{{ url('/') }}" class="font-black tracking-tight text-slate-900 text-lg">
                         <img alt="Logo" class="h-16 w-auto" src="{{ route('site.logo') }}"/>    
                 </a>
-                <nav class="flex items-center gap-6">
+                <nav class="hidden md:flex items-center gap-6">
                     <ul class="hidden md:flex items-center gap-6">
                         <li class="relative group">
                             <a href="#about-us" data-nav="about-us" class="nav-link font-thin text-slate-700 hover:text-slate-900 inline-flex items-center gap-1">
@@ -59,18 +59,63 @@
                         </div>
                     </div>
                 </nav>
+                <button type="button" id="mobileMenuOpen" class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors" aria-label="Abrir menu">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
             </div>
         </header>
 
+        <div id="mobileMenu" class="fixed inset-0 z-[70] hidden md:hidden">
+            <div id="mobileMenuBackdrop" class="absolute inset-0 bg-black/50"></div>
+            <div id="mobileMenuPanel" class="absolute inset-y-0 left-0 w-[85%] max-w-sm bg-white shadow-2xl -translate-x-full transition-transform duration-300">
+                <div class="h-24 px-6 flex items-center justify-between border-b border-slate-100">
+                    <a href="{{ url('/') }}" class="font-black tracking-tight text-slate-900 text-lg">
+                        <img alt="Logo" class="h-12 w-auto" src="{{ route('site.logo') }}"/>
+                    </a>
+                    <button type="button" id="mobileMenuClose" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors" aria-label="Fechar menu">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div class="px-6 py-6">
+                    <nav class="space-y-1">
+                        <a href="#about-us" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">About us</a>
+                        <a href="{{ url('/our-history') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">Our history</a>
+                        <a href="{{ url('/our-services') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">Our services</a>
+                        <a href="{{ route('ports.index') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">Ports</a>
+                        <a href="{{ route('pi-clubs.index') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">P&amp;I Clubs</a>
+                        <a href="{{ route('circulars-guidelines.index') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">Circulars &amp; Guidelines</a>
+                        <a href="{{ route('our-team.index') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">Our team</a>
+                        <a href="{{ route('contact.index') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">Contact</a>
+                    </nav>
+
+                    <div class="mt-6 border-t border-slate-100 pt-4">
+                        <div class="flex items-center gap-4">
+                            @foreach($socialNetworks as $social)
+                                <a href="{{ $social->url }}" class="text-slate-700 hover:text-slate-900" aria-label="{{ $social->name }}" target="_blank" rel="noopener">
+                                    <i class="{{ $social->icon ?: 'fa-solid fa-link' }} text-lg"></i>
+                                </a>
+                            @endforeach
+                        </div>
+                        <div class="mt-4 text-sm text-slate-700">
+                            <div class="font-semibold">Emergency phones</div>
+                            <div class="mt-1">
+                                {!! $settings->emergency_phone ?? '' !!}<br/>
+                                {!! $settings->phone ?? '' !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <main class="flex-1">
-            <div id="bannerMaster" class="relative flex items-center justify-center min-h-[calc(100vh-6rem)]">
-                <div id="homeCarousel" class="absolute inset-0">
-                    <div class="relative w-full h-full overflow-hidden">
+            <div id="bannerMaster" class="relative flex items-center justify-center ">
+                <div id="homeCarousel" class="relative inset-0">
+                    <div class="relative w-full h-auto overflow-hidden">
                         @if(isset($banners) && $banners->count())
                             @foreach($banners as $index => $banner)
-                                <a href="{{ $banner->link ?: '#' }}" target="{{ $banner->link ? '_blank' : '_self' }}" rel="noopener" class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out {{ $index === 0 ? 'opacity-100' : '' }}" data-slide="{{ $index }}">
-                                    <img src="{{ asset('storage/'.$banner->image) }}" alt="{{ $banner->title ?: 'Banner' }}" class="w-full h-full object-cover">
-                                    <div class="absolute inset-0 bg-black/35"></div>
+                                <a href="{{ $banner->link ?: '#' }}" target="{{ $banner->link ? '_blank' : '_self' }}" rel="noopener" class="carousel-slide relative inset-0 opacity-0 transition-opacity duration-700 ease-in-out {{ $index === 0 ? 'opacity-100' : '' }}" data-slide="{{ $index }}">
+                                    <img src="{{ asset('storage/'.$banner->image) }}" alt="{{ $banner->title ?: 'Banner' }}" class="w-full h-auto object-cover">
                                     <div class="absolute inset-x-0 bottom-16 px-6">
                                         <div class="max-w-6xl mx-auto">
                                             @if($banner->title)
@@ -125,40 +170,10 @@
 
                 <div class="mt-12 w-full">
                     <div class="relative overflow-hidden">
-                        <div class="relative w-full h-[420px] md:h-[520px]">
+                        <div class="relative w-full h-[200px] md:h-[660px]">
                             @forelse(($portsBanners ?? collect())->filter(fn($p) => !empty($p->image)) as $index => $banner)
                                 <div class="port-slide absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out {{ $index === 0 ? 'opacity-100' : '' }}" data-port-slide="{{ $index }}">
-                                    <img src="{{ asset('storage/'.$banner->image) }}" alt="{{ $banner->title }}" class="w-full h-full object-cover">
-                                    <div class="absolute inset-0 bg-black/20"></div>
-
-                                    <div class="absolute inset-0 flex items-center">
-                                        <div class="max-w-6xl mx-auto w-full">
-                                            <div class="w-[90%] md:w-full rounded-2xl bg-[#29344D]/50 backdrop-blur-md p-7 md:p-9 text-left text-white">
-                                                <div class="text-3xl md:text-4xl font-black tracking-tight">
-                                                    {{ $banner->title }}
-                                                </div>
-
-                                                @if(!empty($banner->subtitle))
-                                                    <div class="mt-2 text-white/90 text-lg md:text-xl font-semibold">
-                                                        {{ $banner->subtitle }}
-                                                    </div>
-                                                @endif
-
-                                                @if(!empty($banner->primary_text))
-                                                    <hr class="mt-4 border-0 h-[2px] bg-white/90 w-full"/>
-                                                    <div class="mt-2 text-white text-lg md:text-xl font-semibold leading-snug whitespace-pre-line">
-                                                        {{ $banner->primary_text }}
-                                                    </div>
-                                                @endif
-
-                                                @if(!empty($banner->text))
-                                                    <div class="mt-2 text-white/90 leading-relaxed whitespace-pre-line text-justify hidden md:block">
-                                                        {{ $banner->text }}
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <img src="{{ asset('storage/'.$banner->image) }}" alt="{{ $banner->title }}" class="w-full h-auto object-cover">
                                 </div>
                             @empty
                                 <div class="port-slide absolute inset-0 opacity-100" data-port-slide="0">
@@ -188,11 +203,9 @@
             </section>
 
             <section class="py-16 border-t border-slate-100 scroll-mt-28" id="news">
-                <div class="max-w-6xl mx-auto px-6">
-                    <div class="flex items-end justify-between gap-6">
-                        <div>
-                            <h2 class="text-3xl md:text-4xl font-bold text-center tracking-tight text-slate-900">News</h2>
-                        </div>
+                <div class="w-[90%] mx-auto px-6">
+                    <div class="flex items-end justify-center text-center">
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">News</h2>
                     </div>
 
                     <div class="relative mt-8">
@@ -203,10 +216,11 @@
                             <i class="fa-solid fa-chevron-right text-xl"></i>
                         </button>
 
-                        <div id="newsTrack" class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 px-16">
-                            @forelse(($newsPosts ?? collect()) as $post)
-                                <article data-slide-item class="snap-start shrink-0 w-[85%] sm:w-[60%] md:w-[46%] lg:w-[31%] bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-                                    <a href="{{ route('news.show', $post->slug) }}" class="block h-44 bg-slate-100" aria-label="Ler notícia: {{ $post->title }}">
+                        <div class="flex justify-center">
+                            <div id="newsTrack" class="w-full max-w-8xl flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 px-16">
+                                @forelse(($newsPosts ?? collect()) as $post)
+                                    <article data-slide-item class="snap-start shrink-0 w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                                    <a href="{{ route('circulars-guidelines.index') }}" class="block h-44 bg-slate-100" aria-label="Ler notícia: {{ $post->title }}">
                                         @if($post->image)
                                             <img src="{{ asset('storage/'.$post->image) }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
                                         @else
@@ -214,30 +228,29 @@
                                         @endif
                                     </a>
                                     <div class="p-6">
-                                        <div class="text-xs font-semibold text-slate-500">
-                                            {{ optional($post->date ?? $post->created_at)->format('d/m/Y') }}
-                                        </div>
+
                                         <h3 class="mt-2 text-lg font-bold text-slate-900 leading-snug">
-                                            <a href="{{ route('news.show', $post->slug) }}" class="hover:text-[#C5A573] transition-colors">{{ $post->title }}</a>
+                                            <a href="{{ route('circulars-guidelines.index') }}" class="hover:text-[#C5A573] transition-colors">{{ $post->title }}</a>
                                         </h3>
-                                        @if(!empty($post->header_line))
-                                            <div class="mt-2 text-[12px] font-semibold  tracking-widest text-[#444444]">
-                                                {{ $post->header_line }}
+                                        @if(!empty($post->content))
+                                            <div class="mt-2 text-[14px] font-semibold  tracking-widest text-[#444444]">
+                                                {!! $post->content !!}
                                             </div>
                                         @endif
                                         <div class="mt-4">
                                             <div class="flex justify-end">
-                                                <a href="{{ route('news.show', $post->slug) }}" class="inline-flex items-center gap-2 text-sm font-semibold text-[#29344D] hover:text-[#C5A573] transition-colors">
+                                                <a href="{{ route('circulars-guidelines.index') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-[#29344D] hover:text-[#C5A573] transition-colors">
                                                     <span>Read more</span>
                                                     <i class="fa-solid fa-arrow-right text-xs"></i>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                </article>
-                            @empty
-                                <div class="text-slate-500">Cadastre e publique notícias no painel para exibir este carrossel.</div>
-                            @endforelse
+                                    </article>
+                                @empty
+                                    <div class="text-slate-500">Cadastre e publique notícias no painel para exibir este carrossel.</div>
+                                @endforelse
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -296,6 +309,41 @@
                 siteHeader.classList.toggle('backdrop-blur-md', isFloating);
                 siteHeader.classList.toggle('shadow-sm', isFloating);
             }
+
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuPanel = document.getElementById('mobileMenuPanel');
+            const mobileMenuOpen = document.getElementById('mobileMenuOpen');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+            const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+            const mobileMenuLinks = Array.from(document.querySelectorAll('.mobile-menu-link'));
+            let mobileMenuCloseTimeoutId = null;
+
+            function openMobileMenu() {
+                if (!mobileMenu || !mobileMenuPanel) return;
+                if (mobileMenuCloseTimeoutId) clearTimeout(mobileMenuCloseTimeoutId);
+                mobileMenu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                requestAnimationFrame(() => {
+                    mobileMenuPanel.classList.remove('-translate-x-full');
+                });
+            }
+
+            function closeMobileMenu() {
+                if (!mobileMenu || !mobileMenuPanel) return;
+                mobileMenuPanel.classList.add('-translate-x-full');
+                document.body.style.overflow = '';
+                mobileMenuCloseTimeoutId = setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 300);
+            }
+
+            mobileMenuOpen?.addEventListener('click', openMobileMenu);
+            mobileMenuClose?.addEventListener('click', closeMobileMenu);
+            mobileMenuBackdrop?.addEventListener('click', closeMobileMenu);
+            mobileMenuLinks.forEach((link) => link.addEventListener('click', closeMobileMenu));
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMobileMenu();
+            });
 
             const navLinks = Array.from(document.querySelectorAll('[data-nav]'));
             const sectionIds = ['about-us', 'ports', 'pi-clubs', 'circulars-guidelines', 'our-team', 'contact'];
@@ -363,7 +411,7 @@
             syncHeaderState();
             window.addEventListener('scroll', syncHeaderState, { passive: true });
 
-            function setupArrowCarousel(trackId, prevId, nextId) {
+            function setupArrowCarousel(trackId, prevId, nextId, options = {}) {
                 const track = document.getElementById(trackId);
                 const prev = document.getElementById(prevId);
                 const next = document.getElementById(nextId);
@@ -376,35 +424,34 @@
                     const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
                     return firstItem.getBoundingClientRect().width + gap;
                 };
+                const getMultiplier = typeof options.getMultiplier === 'function' ? options.getMultiplier : () => 1;
 
                 prev.addEventListener('click', () => {
-                    track.scrollBy({ left: -getStep(), behavior: 'smooth' });
+                    track.scrollBy({ left: -getStep() * getMultiplier(), behavior: 'smooth' });
                 });
 
                 next.addEventListener('click', () => {
-                    track.scrollBy({ left: getStep(), behavior: 'smooth' });
+                    track.scrollBy({ left: getStep() * getMultiplier(), behavior: 'smooth' });
                 });
             }
 
             setupArrowCarousel('partnersTrack', 'partnersPrev', 'partnersNext');
-            setupArrowCarousel('newsTrack', 'newsPrev', 'newsNext');
+            setupArrowCarousel('newsTrack', 'newsPrev', 'newsNext', {
+                getMultiplier: () => (window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1),
+            });
 
             const portSlides = Array.from(document.querySelectorAll('.port-slide'));
-            const portDots = Array.from(document.querySelectorAll('.ports-dot'));
             const portsPrev = document.getElementById('portsBannerPrev');
             const portsNext = document.getElementById('portsBannerNext');
             let portIndex = 0;
             let portsIntervalId = null;
 
             function renderPortsBanner(index) {
+                if (!portSlides.length) return;
                 portIndex = index;
                 portSlides.forEach((slide, i) => {
                     slide.classList.toggle('opacity-100', i === index);
                     slide.classList.toggle('opacity-0', i !== index);
-                });
-                portDots.forEach((dot, i) => {
-                    dot.classList.toggle('bg-[#C5A573]', i === index);
-                    dot.classList.toggle('bg-white/60', i !== index);
                 });
             }
 
@@ -416,18 +463,13 @@
                 }, 7000);
             }
 
-            portDots.forEach((dot, i) => {
-                dot.addEventListener('click', () => {
-                    renderPortsBanner(i);
-                    startPortsBanner();
-                });
-            });
-
             portsPrev?.addEventListener('click', () => {
+                if (!portSlides.length) return;
                 renderPortsBanner((portIndex - 1 + portSlides.length) % portSlides.length);
                 startPortsBanner();
             });
             portsNext?.addEventListener('click', () => {
+                if (!portSlides.length) return;
                 renderPortsBanner((portIndex + 1) % portSlides.length);
                 startPortsBanner();
             });

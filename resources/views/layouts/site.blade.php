@@ -25,7 +25,7 @@
                 <a href="{{ url('/') }}" class="font-black tracking-tight text-slate-900 text-lg">
                     <img alt="Logo" class="h-16 w-auto" src="{{ route('site.logo') }}"/>
                 </a>
-                <nav class="flex items-center gap-6">
+                <nav class="hidden md:flex items-center gap-6">
                     <ul class="hidden md:flex items-center gap-6">
                         <li class="relative group">
                             <a href="{{ url('/#about-us') }}" class="nav-link font-thin text-slate-700 hover:text-slate-900 inline-flex items-center gap-1">
@@ -60,8 +60,54 @@
                         </div>
                     </div>
                 </nav>
+                <button type="button" id="mobileMenuOpen" class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors" aria-label="Abrir menu">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
             </div>
         </header>
+
+        <div id="mobileMenu" class="fixed inset-0 z-[70] hidden md:hidden">
+            <div id="mobileMenuBackdrop" class="absolute inset-0 bg-black/50"></div>
+            <div id="mobileMenuPanel" class="absolute inset-y-0 left-0 w-[85%] max-w-sm bg-white shadow-2xl -translate-x-full transition-transform duration-300">
+                <div class="h-24 px-6 flex items-center justify-between border-b border-slate-100">
+                    <a href="{{ url('/') }}" class="font-black tracking-tight text-slate-900 text-lg">
+                        <img alt="Logo" class="h-12 w-auto" src="{{ route('site.logo') }}"/>
+                    </a>
+                    <button type="button" id="mobileMenuClose" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors" aria-label="Fechar menu">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div class="px-6 py-6">
+                    <nav class="space-y-1">
+                        <a href="{{ url('/#about-us') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">About us</a>
+                        <a href="{{ url('/our-history') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">Our history</a>
+                        <a href="{{ url('/our-services') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">Our services</a>
+                        <a href="{{ route('ports.index') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">Ports</a>
+                        <a href="{{ route('pi-clubs.index') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">P&amp;I Clubs</a>
+                        <a href="{{ route('circulars-guidelines.index') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">Circulars &amp; Guidelines</a>
+                        <a href="{{ route('our-team.index') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">Our team</a>
+                        <a href="{{ route('contact.index') }}" class="mobile-menu-link block px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-medium">Contact</a>
+                    </nav>
+
+                    <div class="mt-6 border-t border-slate-100 pt-4">
+                        <div class="flex items-center gap-4">
+                            @foreach($socialNetworks as $social)
+                                <a href="{{ $social->url }}" class="text-slate-700 hover:text-slate-900" aria-label="{{ $social->name }}" target="_blank" rel="noopener">
+                                    <i class="{{ $social->icon ?: 'fa-solid fa-link' }} text-lg"></i>
+                                </a>
+                            @endforeach
+                        </div>
+                        <div class="mt-4 text-sm text-slate-700">
+                            <div class="font-semibold">Emergency phones</div>
+                            <div class="mt-1">
+                                {!! $settings->emergency_phone ?? '' !!}<br/>
+                                {!! $settings->phone ?? '' !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         @if(!empty($pageBanner?->image))
             <div class="w-full h-[220px] md:h-[300px] bg-slate-200 overflow-hidden">
@@ -117,6 +163,41 @@
                 siteHeader.classList.toggle('backdrop-blur-md', isFloating);
                 siteHeader.classList.toggle('shadow-sm', isFloating);
             }
+
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuPanel = document.getElementById('mobileMenuPanel');
+            const mobileMenuOpen = document.getElementById('mobileMenuOpen');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+            const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+            const mobileMenuLinks = Array.from(document.querySelectorAll('.mobile-menu-link'));
+            let mobileMenuCloseTimeoutId = null;
+
+            function openMobileMenu() {
+                if (!mobileMenu || !mobileMenuPanel) return;
+                if (mobileMenuCloseTimeoutId) clearTimeout(mobileMenuCloseTimeoutId);
+                mobileMenu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                requestAnimationFrame(() => {
+                    mobileMenuPanel.classList.remove('-translate-x-full');
+                });
+            }
+
+            function closeMobileMenu() {
+                if (!mobileMenu || !mobileMenuPanel) return;
+                mobileMenuPanel.classList.add('-translate-x-full');
+                document.body.style.overflow = '';
+                mobileMenuCloseTimeoutId = setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 300);
+            }
+
+            mobileMenuOpen?.addEventListener('click', openMobileMenu);
+            mobileMenuClose?.addEventListener('click', closeMobileMenu);
+            mobileMenuBackdrop?.addEventListener('click', closeMobileMenu);
+            mobileMenuLinks.forEach((link) => link.addEventListener('click', closeMobileMenu));
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMobileMenu();
+            });
 
             syncHeaderState();
             window.addEventListener('scroll', syncHeaderState, { passive: true });

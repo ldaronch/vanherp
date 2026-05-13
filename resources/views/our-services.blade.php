@@ -16,18 +16,50 @@
         </div>
 
         @php
-            $items = !empty($page?->items)
-                ? array_values(array_filter(preg_split("/\r\n|\r|\n/", trim($page->items))))
-                : [];
+            $itemsRaw = trim((string) ($page?->items ?? ''));
+            $items = [];
+
+            if ($itemsRaw !== '') {
+                $decoded = json_decode($itemsRaw, true);
+                $items = (json_last_error() === JSON_ERROR_NONE && is_array($decoded))
+                    ? $decoded
+                    : preg_split("/\r\n|\r|\n/", $itemsRaw);
+            }
+
+            $parsedItems = [];
+
+            foreach ($items as $rawItem) {
+                if (is_array($rawItem)) {
+                    $name = trim((string) ($rawItem['name'] ?? $rawItem['title'] ?? ''));
+                    $url = trim((string) ($rawItem['url'] ?? ''));
+                } else {
+                    $line = trim((string) $rawItem);
+                    $line = preg_replace('/^[\-\*\•\x{2022}\x{25CF}\x{25AA}\x{25E6}]+\s*/u', '', $line);
+
+                    $parts = array_map('trim', explode('|', $line, 2));
+                    $name = $parts[0] ?? '';
+                    $url = $parts[1] ?? '';
+                }
+
+                if ($name !== '') {
+                    $parsedItems[] = ['name' => $name, 'url' => $url];
+                }
+            }
         @endphp
 
-        @if(!empty($items))
-            <div class="mt-10">
+        @if(!empty($parsedItems))
+            <div class="mt-10 bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
                 <ul class="space-y-3">
-                    @foreach($items as $item)
+                    @foreach($parsedItems as $item)
                         <li class="flex items-start gap-3 text-slate-700">
                             <i class="fa-solid fa-arrow-right text-[#C5A573] mt-1"></i>
-                            <span class="leading-relaxed">{{ $item }}</span>
+                            @if(!empty($item['url']))
+                                <a href="{{ $item['url'] }}" target="_blank" rel="noopener" class="leading-relaxed hover:text-[#C5A573] transition-colors">
+                                    {{ $item['name'] }}
+                                </a>
+                            @else
+                                <span class="leading-relaxed">{{ $item['name'] }}</span>
+                            @endif
                         </li>
                     @endforeach
                 </ul>
@@ -36,9 +68,7 @@
 
         <div class="mt-10 w-full">
             @if(!empty($page?->image))
-                <img src="{{ asset('storage/'.$page->image) }}" alt="{{ $page->title ?? 'Our services' }}" class="w-full h-[360px] md:h-[520px] object-cover">
-            @else
-                <div class="w-full h-[360px] md:h-[520px] bg-slate-200"></div>
+                <img src="{{ asset('storage/'.$page->image) }}" alt="{{ $page->title ?? 'Our services' }}" class="w-full h-auto object-cover">
             @endif
         </div>
     </div>

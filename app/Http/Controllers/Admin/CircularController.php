@@ -29,14 +29,14 @@ class CircularController extends Controller
             'date' => 'nullable|date',
             'description' => 'nullable',
             'url' => 'nullable|url|max:2048',
-            'attachments.*' => 'nullable|file|mimes:pdf|max:10240',
+            'file_path' => 'nullable|file|mimes:pdf|max:10240',
         ]);
 
         $incomingUrl = trim((string) $request->input('url', ''));
         $hasUrl = $incomingUrl !== '';
-        $hasAttachments = $request->hasFile('attachments');
+        $hasFile = $request->hasFile('file_path');
 
-        if (!$hasUrl && !$hasAttachments) {
+        if (!$hasUrl && !$hasFile) {
             return back()
                 ->withErrors(['url' => 'Informe um link ou envie ao menos um PDF.'])
                 ->withInput();
@@ -49,14 +49,13 @@ class CircularController extends Controller
             'url' => $hasUrl ? $incomingUrl : null,
         ]);
 
-        if (!$hasUrl && $request->hasFile('attachments')) {
-            foreach ($request->file('attachments') as $file) {
-                $path = $file->store('circular_attachments', 'public');
-                $circular->attachments()->create([
-                    'file_path' => $path,
-                    'original_name' => $file->getClientOriginalName(),
-                ]);
-            }
+        if (!$hasUrl && $hasFile) {
+            $file = $request->file('file_path');
+            $path = $file->store('circular_attachments', 'public');
+            $circular->attachments()->create([
+                'file_path' => $path,
+                'original_name' => $file->getClientOriginalName(),
+            ]);
         }
 
         return redirect()->route('admin.circulars.index')->with('success', 'Circular cadastrada com sucesso!');
@@ -75,15 +74,15 @@ class CircularController extends Controller
             'date' => 'nullable|date',
             'description' => 'nullable',
             'url' => 'nullable|url|max:2048',
-            'attachments.*' => 'nullable|file|mimes:pdf|max:10240',
+            'file_path' => 'nullable|file|mimes:pdf|max:10240',
         ]);
 
         $incomingUrl = trim((string) $request->input('url', ''));
         $hasIncomingUrl = $incomingUrl !== '';
-        $hasNewAttachments = $request->hasFile('attachments');
-        $hasExistingAttachments = $circular->attachments()->exists();
+        $hasNewFile = $request->hasFile('file_path');
+        $hasExistingFile = $circular->attachments()->exists();
 
-        if (!$hasIncomingUrl && !$hasNewAttachments && !$hasExistingAttachments) {
+        if (!$hasIncomingUrl && !$hasNewFile && !$hasExistingFile) {
             return back()
                 ->withErrors(['url' => 'Informe um link ou mantenha/envie ao menos um PDF.'])
                 ->withInput();
@@ -96,8 +95,12 @@ class CircularController extends Controller
             $circular->attachments()->delete();
         }
 
-        if ($hasNewAttachments) {
+        if ($hasNewFile) {
             $incomingUrl = '';
+            foreach ($circular->attachments as $attachment) {
+                Storage::disk('public')->delete($attachment->file_path);
+            }
+            $circular->attachments()->delete();
         }
 
         $circular->update([
@@ -107,14 +110,13 @@ class CircularController extends Controller
             'url' => $incomingUrl !== '' ? $incomingUrl : null,
         ]);
 
-        if ($request->hasFile('attachments')) {
-            foreach ($request->file('attachments') as $file) {
-                $path = $file->store('circular_attachments', 'public');
-                $circular->attachments()->create([
-                    'file_path' => $path,
-                    'original_name' => $file->getClientOriginalName(),
-                ]);
-            }
+        if ($hasNewFile) {
+            $file = $request->file('file_path');
+            $path = $file->store('circular_attachments', 'public');
+            $circular->attachments()->create([
+                'file_path' => $path,
+                'original_name' => $file->getClientOriginalName(),
+            ]);
         }
 
         return redirect()->route('admin.circulars.index')->with('success', 'Circular atualizada com sucesso!');
