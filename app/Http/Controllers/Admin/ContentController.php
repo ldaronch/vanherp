@@ -31,6 +31,7 @@ class ContentController extends Controller
             'title' => 'required',
             'subtitle' => 'nullable|string|max:255',
             'text' => 'required',
+            'url' => 'nullable|url|max:2048',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'is_active' => 'boolean',
         ]);
@@ -58,6 +59,7 @@ class ContentController extends Controller
             'title' => 'required',
             'subtitle' => 'nullable|string|max:255',
             'text' => 'required',
+            'url' => 'nullable|url|max:2048',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'is_active' => 'boolean',
         ]);

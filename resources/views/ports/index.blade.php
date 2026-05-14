@@ -36,7 +36,7 @@
         </div>
 
         <div id="map" class="mt-10 flex items-center justify-center">
-            <img src="{{ asset('map.svg') }}" alt="Map" class="w-[100%] h-auto">
+            <object data="{{ asset('map.svg') }}" type="image/svg+xml" class="w-[90%] h-auto" aria-label="Map"></object>
         </div>
     </div>
 @endsection

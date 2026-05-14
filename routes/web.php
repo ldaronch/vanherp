@@ -108,7 +108,7 @@ Route::get('/', function () {
         ->where('section', 'port_banner')
         ->where('is_active', true)
         ->latest()
-        ->get(['id', 'primary_text', 'title', 'subtitle', 'text', 'image', 'is_active']);
+        ->get(['id', 'primary_text', 'title', 'subtitle', 'text', 'image', 'url', 'is_active']);
 
     $piClubSections = PiClubSection::query()
         ->where('is_active', true)

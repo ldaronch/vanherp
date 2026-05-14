@@ -37,6 +37,12 @@
                 </div>
 
                 <div>
+                    <label for="url" class="block text-sm font-bold text-on-surface-variant mb-2">URL (opcional)</label>
+                    <input type="url" name="url" id="url" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('url') }}" placeholder="https://">
+                    @error('url') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
+                </div>
+
+                <div>
                     <label for="text" class="block text-sm font-bold text-on-surface-variant mb-2">Texto Longo</label>
                     <textarea name="text" id="text" rows="8" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" required>{{ old('text') }}</textarea>
                     @error('text') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror

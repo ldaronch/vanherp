@@ -114,19 +114,35 @@
                     <div class="relative w-full h-auto overflow-hidden">
                         @if(isset($banners) && $banners->count())
                             @foreach($banners as $index => $banner)
-                                <a href="{{ $banner->link ?: '#' }}" target="{{ $banner->link ? '_blank' : '_self' }}" rel="noopener" class="carousel-slide relative inset-0 opacity-0 transition-opacity duration-700 ease-in-out {{ $index === 0 ? 'opacity-100' : '' }}" data-slide="{{ $index }}">
-                                    <img src="{{ route('media', ['path' => $banner->image]) }}" alt="{{ $banner->title ?: 'Banner' }}" class="w-full h-auto object-cover">
-                                    <div class="absolute inset-x-0 bottom-16 px-6">
-                                        <div class="max-w-6xl mx-auto">
-                                            @if($banner->title)
-                                                <div class="text-white text-4xl md:text-5xl font-black tracking-tight">{{ $banner->title }}</div>
-                                            @endif
-                                            @if($banner->subtitle)
-                                                <div class="mt-3 text-white/90 text-lg md:text-xl font-medium max-w-3xl">{{ $banner->subtitle }}</div>
-                                            @endif
+                                @if(!empty($banner->link))
+                                    <a href="{{ $banner->link }}" target="_blank" rel="noopener" class="carousel-slide relative inset-0 opacity-0 transition-opacity duration-700 ease-in-out {{ $index === 0 ? 'opacity-100' : '' }}" data-slide="{{ $index }}">
+                                        <img src="{{ route('media', ['path' => $banner->image]) }}" alt="{{ $banner->title ?: 'Banner' }}" class="w-full h-auto object-cover">
+                                        <div class="absolute inset-x-0 bottom-16 px-6">
+                                            <div class="max-w-6xl mx-auto">
+                                                @if($banner->title)
+                                                    <div class="text-white text-4xl md:text-5xl font-black tracking-tight">{{ $banner->title }}</div>
+                                                @endif
+                                                @if($banner->subtitle)
+                                                    <div class="mt-3 text-white/90 text-lg md:text-xl font-medium max-w-3xl">{{ $banner->subtitle }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </a>
+                                @else
+                                    <div class="carousel-slide relative inset-0 opacity-0 transition-opacity duration-700 ease-in-out {{ $index === 0 ? 'opacity-100' : '' }}" data-slide="{{ $index }}">
+                                        <img src="{{ route('media', ['path' => $banner->image]) }}" alt="{{ $banner->title ?: 'Banner' }}" class="w-full h-auto object-cover">
+                                        <div class="absolute inset-x-0 bottom-16 px-6">
+                                            <div class="max-w-6xl mx-auto">
+                                                @if($banner->title)
+                                                    <div class="text-white text-4xl md:text-5xl font-black tracking-tight">{{ $banner->title }}</div>
+                                                @endif
+                                                @if($banner->subtitle)
+                                                    <div class="mt-3 text-white/90 text-lg md:text-xl font-medium max-w-3xl">{{ $banner->subtitle }}</div>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
-                                </a>
+                                @endif
                             @endforeach
                         @else
                             <div class="carousel-slide absolute inset-0 opacity-100" data-slide="0">
@@ -173,7 +189,13 @@
                         <div class="relative w-full h-[200px] md:h-[660px]">
                             @forelse(($portsBanners ?? collect())->filter(fn($p) => !empty($p->image)) as $index => $banner)
                                 <div class="port-slide absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out {{ $index === 0 ? 'opacity-100' : '' }}" data-port-slide="{{ $index }}">
-                                    <img src="{{ route('media', ['path' => $banner->image]) }}" alt="{{ $banner->title }}" class="w-full h-auto object-cover">
+                                    @if(!empty($banner->url))
+                                        <a href="{{ $banner->url }}" target="_blank" rel="noopener" class="block">
+                                            <img src="{{ route('media', ['path' => $banner->image]) }}" alt="{{ $banner->title }}" class="w-full h-auto object-cover">
+                                        </a>
+                                    @else
+                                        <img src="{{ route('media', ['path' => $banner->image]) }}" alt="{{ $banner->title }}" class="w-full h-auto object-cover">
+                                    @endif
                                 </div>
                             @empty
                                 <div class="port-slide absolute inset-0 opacity-100" data-port-slide="0">
