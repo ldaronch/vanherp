@@ -38,7 +38,7 @@
                             @else
                                 <div class="flex flex-col gap-1">
                                     @forelse($circular->attachments as $attachment)
-                                        <a href="{{ asset('storage/' . $attachment->file_path) }}" class="inline-flex items-center gap-1 text-[10px] font-bold text-secondary hover:underline" target="_blank" rel="noopener">
+                                        <a href="{{ route('media', ['path' => $attachment->file_path]) }}" class="inline-flex items-center gap-1 text-[10px] font-bold text-secondary hover:underline" target="_blank" rel="noopener">
                                             <span class="material-symbols-outlined text-xs">description</span>
                                             {{ Str::limit($attachment->original_name, 20) }}
                                         </a>

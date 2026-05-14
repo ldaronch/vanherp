@@ -43,7 +43,7 @@
                     @endphp
                     @if($attachment && !empty($attachment->file_path))
                         <div class="mt-2 text-[10px] text-slate-400 font-bold uppercase tracking-widest">Arquivo atual cadastrado</div>
-                        <a href="{{ asset('storage/'.$attachment->file_path) }}" target="_blank" rel="noopener" class="mt-1 inline-flex items-center gap-2 text-xs font-semibold text-primary hover:brightness-110 transition-colors">
+                        <a href="{{ route('media', ['path' => $attachment->file_path]) }}" target="_blank" rel="noopener" class="mt-1 inline-flex items-center gap-2 text-xs font-semibold text-primary hover:brightness-110 transition-colors">
                             <span class="material-symbols-outlined text-sm">picture_as_pdf</span>
                             <span class="truncate">{{ $attachment->original_name ?: 'Download' }}</span>
                         </a>
