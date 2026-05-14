@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('title', 'Circulares - Painel Administrativo')
-
 @section('content')
     <header class="mb-10 flex justify-between items-center">
         <div>
@@ -36,6 +35,7 @@
                                     Abrir link
                                 </a>
                             @else
+                            <!-- ajuste -->
                                 <div class="flex flex-col gap-1">
                                     @forelse($circular->attachments as $attachment)
                                         <a href="{{ route('media', ['path' => $attachment->file_path]) }}" class="inline-flex items-center gap-1 text-[10px] font-bold text-secondary hover:underline" target="_blank" rel="noopener">
