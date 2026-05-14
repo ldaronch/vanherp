@@ -19,6 +19,9 @@
         <div class="mt-10 w-full">
             @if(!empty($page?->image))
                 <img src="{{ route('media', ['path' => $page->image]) }}" alt="{{ $page->title ?? 'Our history' }}" class="w-full h-auto object-cover">
+                @if(!empty($page?->image_caption))
+                    <div class="mt-3 text-sm text-slate-500">{{ $page->image_caption }}</div>
+                @endif
             @else
                 <div class="w-full h-[360px] md:h-[520px] bg-slate-200"></div>
             @endif

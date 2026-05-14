@@ -19,7 +19,7 @@
             <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-slate-100 p-6 flex gap-6">
                 @if($content->image)
                     <div class="w-48 h-32 flex-shrink-0 bg-slate-50 rounded-lg overflow-hidden">
-                        <img src="{{ asset('storage/' . $content->image) }}" alt="{{ $content->title }}" class="w-full h-full object-cover">
+                        <img src="{{ url('media/' . $content->image) }}" alt="{{ $content->title }}" class="w-full h-full object-cover">
                     </div>
                 @endif
                 <div class="flex-1">

@@ -55,7 +55,7 @@
                         <div class="labelEmergency"><i class="fa-solid fa-phone fa-flip-horizontal"></i> Emergency phones</div>
                         <div class="phoneShow">
                             {!! $settings->emergency_phone ?? '' !!}<br/>
-                            {!! $settings->phone ?? '' !!}
+                            {!! $settings->cellphone ?? '' !!}
                         </div>
                     </div>
                 </nav>
@@ -100,7 +100,7 @@
                             <div class="font-semibold">Emergency phones</div>
                             <div class="mt-1">
                                 {!! $settings->emergency_phone ?? '' !!}<br/>
-                                {!! $settings->phone ?? '' !!}
+                                {!! $settings->cellphone ?? '' !!}
                             </div>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                     @endif
                     @if(isset($homeText) && !empty($homeText->url))
                         <div class="mt-8">
-                            <a href="{{ $homeText->url }}" class="inline-flex items-center justify-center px-4 py-1 rounded-full border border-[#C5A573] text-[#29344D] font-semibold hover:bg-[#C5A573] hover:text-white transition-colors" target="_blank" rel="noopener">
+                            <a href="{{ $homeText->url }}" class="inline-flex items-center justify-center px-4 py-1 rounded-full border border-[#C5A573] text-[#29344D] font-semibold hover:bg-[#C5A573] hover:text-white transition-colors" rel="noopener">
                                 Learn more
                             </a>
                         </div>
@@ -263,12 +263,12 @@
                 <div class="max-w-6xl mx-auto px-6 py-4 grid grid-cols-1 md:grid-cols-3 ">
 
                     <div class="items-start gap-3">
-                        <div class="font-semibold w-full text-center md:text-left">Phone {{ $settings->phone ?? '' }}</div>
+                        <div class="font-semibold w-full text-center md:text-left">Phone {!! $settings->phone ?? '' !!}</div>
                         <div class="font-semibold w-full text-center md:text-left">Emergency  {!! $settings->emergency_phone ?? '' !!}</div>
                     </div>
 
                     <div class="flex items-start gap-3">
-                        <div class="font-semibold w-full text-center">WhatsApp {{ $settings->whatsapp ?? '' }}</div>
+                        <div class="font-semibold w-full text-center">WhatsApp {!! $settings->whatsapp ?? '' !!}</div>
                     </div>
 
 

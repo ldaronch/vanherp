@@ -35,7 +35,7 @@
                 @error('image') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
 
                 <div class="mt-4 w-full max-w-md aspect-[16/6] rounded-xl overflow-hidden bg-slate-100 border border-slate-100">
-                    <img src="{{ asset('storage/'.$banner->image) }}" alt="Banner atual" class="w-full h-full object-cover">
+                    <img src="{{ url('media/'.$banner->image) }}" alt="Banner atual" class="w-full h-full object-cover">
                 </div>
             </div>
 
@@ -60,4 +60,3 @@
         </form>
     </div>
 @endsection
-

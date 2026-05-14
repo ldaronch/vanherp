@@ -19,7 +19,7 @@
             <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-slate-100 p-6 flex flex-col md:flex-row md:items-center gap-6">
                 <div class="w-24 h-24 rounded-xl overflow-hidden bg-white border border-slate-100 shrink-0">
                     @if($partner->logo)
-                        <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" class="w-full h-full object-cover">
+                        <img src="{{ url('media/'.$partner->logo) }}" alt="{{ $partner->name }}" class="w-full h-full object-cover">
                     @endif
                 </div>
 

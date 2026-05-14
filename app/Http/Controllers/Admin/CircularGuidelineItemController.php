@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CircularGuidelineItem;
 use App\Models\CircularGuidelineSection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CircularGuidelineItemController extends Controller
 {
@@ -30,14 +31,21 @@ class CircularGuidelineItemController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'url' => ['nullable', 'url', 'max:2048'],
+            'file_path' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ]);
+
+        $storedFilePath = null;
+        if ($request->hasFile('file_path')) {
+            $storedFilePath = $request->file('file_path')->store('circular_guideline_items', 'public');
+        }
 
         CircularGuidelineItem::create([
             'section_id' => $circularGuideline->id,
             'name' => $validated['name'],
             'url' => $validated['url'] ?? null,
+            'file_path' => $storedFilePath,
             'sort_order' => $validated['sort_order'] ?? 0,
             'is_active' => (bool) $request->boolean('is_active'),
         ]);
@@ -59,16 +67,33 @@ class CircularGuidelineItemController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'url' => ['nullable', 'url', 'max:2048'],
+            'file_path' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
+            'remove_file' => ['nullable', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ]);
 
-        $item->update([
+        $updateData = [
             'name' => $validated['name'],
             'url' => $validated['url'] ?? null,
             'sort_order' => $validated['sort_order'] ?? 0,
             'is_active' => (bool) $request->boolean('is_active'),
-        ]);
+        ];
+
+        $shouldRemoveFile = (bool) $request->boolean('remove_file');
+        if ($shouldRemoveFile && !empty($item->file_path)) {
+            Storage::disk('public')->delete($item->file_path);
+            $updateData['file_path'] = null;
+        }
+
+        if ($request->hasFile('file_path')) {
+            if (!empty($item->file_path)) {
+                Storage::disk('public')->delete($item->file_path);
+            }
+            $updateData['file_path'] = $request->file('file_path')->store('circular_guideline_items', 'public');
+        }
+
+        $item->update($updateData);
 
         return redirect()->route('admin.circular-guidelines.items.index', $circularGuideline)->with('success', 'Item atualizado com sucesso!');
     }
@@ -86,9 +111,12 @@ class CircularGuidelineItemController extends Controller
     {
         abort_unless($item->section_id === $circularGuideline->id, 404);
 
+        if (!empty($item->file_path)) {
+            Storage::disk('public')->delete($item->file_path);
+        }
+
         $item->delete();
 
         return redirect()->route('admin.circular-guidelines.items.index', $circularGuideline)->with('success', 'Item removido com sucesso!');
     }
 }
-

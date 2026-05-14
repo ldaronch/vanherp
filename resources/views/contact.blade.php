@@ -14,13 +14,20 @@
 
         <div class="mt-10 bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-                <div class="lg:col-span-5 space-y-3">
+                <div class="lg:col-span-5 space-y-2">
                     <div class="flex items-center gap-4 text-lg">
                         <i class="fa-brands fa-whatsapp text-[#25D366] text-2xl"></i>
-                        <div class="text-slate-900 font-semibold">{{ $settings->whatsapp ?? '' }}</div>
+                        <div class="text-slate-900 font-semibold">{!! $settings->whatsapp ?? '' !!}</div>
                     </div>
-
                     <div class="flex items-center gap-4 text-lg">
+                        <i class="fa-solid fa-mobile text-[#C5A573] text-2xl"></i>
+                        <div class="text-slate-900 font-semibold">{!! $settings->cellphone ?? '' !!}</div>
+                    </div>
+                    <div class="flex items-center gap-4 text-lg">
+                        <i class="fa-solid fa-phone-volume text-[#C5A573] text-2xl"></i>
+                        <div class="text-slate-900 font-semibold">{!! $settings->phone ?? '' !!}</div>
+                    </div>
+                    <div class="flex items-center gap-4 text-lg pt-2">
                         <i class="fa-solid fa-envelope text-[#C5A573] text-2x1"></i>
                         <div class="text-slate-900 font-semibold break-all">{{ $settings->email_display ?? '' }}</div>
                     </div>

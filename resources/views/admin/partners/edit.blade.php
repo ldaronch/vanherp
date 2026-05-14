@@ -69,7 +69,7 @@
                 @if($partner->logo)
                     <div class="mt-2 text-xs font-bold text-slate-400">Foto Atual:</div>
                     <div class="mt-1 w-32 h-32 bg-white border border-slate-100 flex items-center justify-center rounded overflow-hidden">
-                        <img src="{{ asset('storage/' . $partner->logo) }}" class="w-full h-full object-cover">
+                        <img src="{{ url('media/' . $partner->logo) }}" class="w-full h-full object-cover">
                     </div>
                 @endif
             </div>

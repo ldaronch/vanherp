@@ -18,7 +18,7 @@
         @forelse($banners as $banner)
             <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden border border-slate-100 flex flex-col">
                 <div class="aspect-video relative overflow-hidden bg-slate-100">
-                    <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}" class="w-full h-full object-cover">
+                    <img src="{{ url('media/' . $banner->image) }}" alt="{{ $banner->title }}" class="w-full h-full object-cover">
                     <div class="absolute top-4 right-4">
                         <span class="px-3 py-1 rounded-full text-xs font-bold {{ $banner->is_active ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700' }}">
                             {{ $banner->is_active ? 'Ativo' : 'Inativo' }}

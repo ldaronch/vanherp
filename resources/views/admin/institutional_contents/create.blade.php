@@ -51,6 +51,14 @@
                 @error('image') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
             </div>
 
+            @if($section === 'our_history')
+                <div>
+                    <label for="image_caption" class="block text-sm font-bold text-on-surface-variant mb-2">Legenda da Foto (opcional)</label>
+                    <input type="text" name="image_caption" id="image_caption" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('image_caption') }}">
+                    @error('image_caption') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
+                </div>
+            @endif
+
             <div class="flex items-center justify-between gap-6 bg-surface-container-low px-5 py-4 rounded-xl border border-slate-100">
                 <div>
                     <div class="text-sm font-bold text-on-surface">Ativo</div>
@@ -72,4 +80,3 @@
         </form>
     </div>
 @endsection
-

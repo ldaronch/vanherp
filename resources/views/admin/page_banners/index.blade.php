@@ -18,7 +18,7 @@
         @forelse($banners as $banner)
             <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-slate-100 overflow-hidden flex flex-col md:flex-row">
                 <div class="w-full md:w-72 h-40 bg-slate-100 overflow-hidden">
-                    <img src="{{ asset('storage/'.$banner->image) }}" alt="Banner" class="w-full h-full object-cover">
+                    <img src="{{ url('media/'.$banner->image) }}" alt="Banner" class="w-full h-full object-cover">
                 </div>
                 <div class="p-6 flex-1 flex flex-col md:flex-row md:items-center gap-6">
                     <div class="flex-1">
@@ -54,4 +54,3 @@
         @endforelse
     </div>
 @endsection
-

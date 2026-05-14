@@ -25,7 +25,7 @@
             <thead>
                 <tr class="bg-slate-50 border-b border-slate-100">
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Título</th>
-                    <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">URL</th>
+                    <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Acesso</th>
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Ordem</th>
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant">Ativo</th>
                     <th class="px-6 py-4 text-xs uppercase tracking-widest font-bold text-on-surface-variant text-right">Ações</th>
@@ -35,7 +35,21 @@
                 @forelse($items as $item)
                     <tr class="hover:bg-slate-50/50 transition-colors">
                         <td class="px-6 py-4 font-semibold text-on-surface">{{ $item->name }}</td>
-                        <td class="px-6 py-4 text-on-surface-variant break-all">{{ $item->url ?? '—' }}</td>
+                        <td class="px-6 py-4">
+                            @if(!empty($item->file_path))
+                                <a href="{{ asset('storage/' . $item->file_path) }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs font-bold text-secondary hover:underline">
+                                    <span class="material-symbols-outlined text-sm">description</span>
+                                    PDF
+                                </a>
+                            @elseif(!empty($item->url))
+                                <a href="{{ $item->url }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs font-bold text-secondary hover:underline break-all">
+                                    <span class="material-symbols-outlined text-sm">link</span>
+                                    Link
+                                </a>
+                            @else
+                                <span class="text-[10px] text-slate-300 italic">Sem PDF/Link</span>
+                            @endif
+                        </td>
                         <td class="px-6 py-4 text-on-surface-variant">{{ $item->sort_order }}</td>
                         <td class="px-6 py-4">
                             <form action="{{ route('admin.circular-guidelines.items.toggle', [$section, $item]) }}" method="POST" class="inline-flex items-center">
@@ -71,4 +85,3 @@
         </table>
     </div>
 @endsection
-

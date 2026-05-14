@@ -15,7 +15,7 @@
     </header>
 
     <div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 border border-slate-100 w-full flex-1 flex flex-col">
-        <form action="{{ route('admin.circular-guidelines.items.store', $section) }}" method="POST" class="flex flex-col gap-6 flex-1">
+        <form action="{{ route('admin.circular-guidelines.items.store', $section) }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-6 flex-1">
             @csrf
 
             <div>
@@ -24,11 +24,16 @@
                 @error('name') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div class="md:col-span-2">
                     <label for="url" class="block text-sm font-bold text-on-surface-variant mb-2">URL (opcional)</label>
                     <input type="url" name="url" id="url" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all" value="{{ old('url') }}" placeholder="https://">
                     @error('url') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
+                </div>
+                <div>
+                    <label for="file_path" class="block text-sm font-bold text-on-surface-variant mb-2">PDF (opcional)</label>
+                    <input type="file" name="file_path" id="file_path" accept="application/pdf" class="w-full px-4 py-3 bg-surface-container-low border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                    @error('file_path') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
                 </div>
                 <div>
                     <label for="sort_order" class="block text-sm font-bold text-on-surface-variant mb-2">Ordem</label>

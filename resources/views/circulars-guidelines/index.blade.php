@@ -23,8 +23,8 @@
                                 @foreach($section->items as $item)
                                     <li class="flex items-start gap-3 text-slate-700">
                                         <i class="fa-solid fa-arrow-right text-[#C5A573] mt-1"></i>
-                                        @if(!empty($item->url))
-                                            <a href="{{ $item->url }}" target="_blank" rel="noopener" class="leading-relaxed hover:text-[#C5A573] transition-colors">
+                                        @if(!empty($item->file_path) || !empty($item->url))
+                                            <a href="{{ !empty($item->file_path) ? asset('storage/' . $item->file_path) : $item->url }}" target="_blank" rel="noopener" class="leading-relaxed hover:text-[#C5A573] transition-colors">
                                                 {{ $item->name }}
                                             </a>
                                         @else

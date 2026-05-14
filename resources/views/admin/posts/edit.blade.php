@@ -55,7 +55,7 @@
                     @error('image') <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p> @enderror
                     @if($post->image)
                         <div class="mt-2 text-xs font-bold text-slate-400">Imagem Atual:</div>
-                        <img src="{{ asset('storage/' . $post->image) }}" class="mt-1 h-20 rounded shadow-sm">
+                        <img src="{{ url('media/' . $post->image) }}" class="mt-1 h-20 rounded shadow-sm">
                     @endif
                 </div>
                 <div class="flex items-center gap-6 pt-6 md:col-span-2">

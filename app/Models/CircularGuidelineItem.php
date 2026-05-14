@@ -13,6 +13,7 @@ class CircularGuidelineItem extends Model
         'section_id',
         'name',
         'url',
+        'file_path',
         'sort_order',
         'is_active',
     ];
@@ -26,4 +27,3 @@ class CircularGuidelineItem extends Model
         return $this->belongsTo(CircularGuidelineSection::class, 'section_id');
     }
 }
-

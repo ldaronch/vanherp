@@ -63,6 +63,7 @@ class InstitutionalContentController extends Controller
             'text' => ['required', 'string'],
             'items' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'image_caption' => ['nullable', 'string', 'max:255'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ]);
@@ -77,6 +78,7 @@ class InstitutionalContentController extends Controller
             'text' => $validated['text'],
             'items' => $section === 'our_services' ? ($validated['items'] ?? null) : null,
             'image' => $validated['image'] ?? null,
+            'image_caption' => $section === 'our_history' ? ($validated['image_caption'] ?? null) : null,
             'sort_order' => $validated['sort_order'] ?? 0,
             'is_active' => (bool) $request->boolean('is_active'),
         ]);
@@ -108,6 +110,7 @@ class InstitutionalContentController extends Controller
             'text' => ['required', 'string'],
             'items' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'image_caption' => ['nullable', 'string', 'max:255'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ]);
@@ -124,6 +127,7 @@ class InstitutionalContentController extends Controller
             'text' => $validated['text'],
             'items' => $section === 'our_services' ? ($validated['items'] ?? null) : null,
             'image' => $validated['image'] ?? $content->image,
+            'image_caption' => $section === 'our_history' ? ($validated['image_caption'] ?? null) : null,
             'sort_order' => $validated['sort_order'] ?? 0,
             'is_active' => (bool) $request->boolean('is_active'),
         ]);
@@ -161,4 +165,3 @@ class InstitutionalContentController extends Controller
             ->with('success', 'Conteúdo removido com sucesso!');
     }
 }
-

@@ -31,7 +31,7 @@
                     <tr class="hover:bg-slate-50/50 transition-colors">
                         <td class="px-6 py-4">
                             @if($post->image)
-                                <img src="{{ asset('storage/' . $post->image) }}" class="w-16 h-10 object-cover rounded shadow-sm">
+                                <img src="{{ url('media/' . $post->image) }}" class="w-16 h-10 object-cover rounded shadow-sm">
                             @else
                                 <div class="w-16 h-10 bg-slate-100 rounded flex items-center justify-center text-slate-300">
                                     <span class="material-symbols-outlined text-sm">image</span>

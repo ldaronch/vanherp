@@ -169,7 +169,7 @@ Route::get('/our-history', function () {
         ->where('is_active', true)
         ->orderByDesc('sort_order')
         ->orderByDesc('created_at')
-        ->first(['id', 'title', 'text', 'image']);
+        ->first(['id', 'title', 'text', 'image', 'image_caption']);
 
     $socialNetworks = SocialNetwork::query()
         ->where('is_active', true)
