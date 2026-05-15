@@ -11,7 +11,10 @@ class PortController extends Controller
 {
     public function index()
     {
-        $ports = Port::query()->orderByDesc('created_at')->get();
+        $ports = Port::query()
+            ->orderByDesc('priority')
+            ->orderBy('name')
+            ->get();
         return view('admin.ports.index', compact('ports'));
     }
 
@@ -25,10 +28,12 @@ class PortController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'url' => 'nullable|url',
+            'priority' => 'nullable|integer|min:0',
             'is_active' => 'nullable|boolean',
         ]);
 
         $validated['is_active'] = (bool) ($request->boolean('is_active'));
+        $validated['priority'] = (int) ($validated['priority'] ?? 0);
 
         Port::create($validated);
         return redirect()->route('admin.ports.index')->with('success', 'Porto cadastrado com sucesso!');
@@ -44,10 +49,12 @@ class PortController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'url' => 'nullable|url',
+            'priority' => 'nullable|integer|min:0',
             'is_active' => 'nullable|boolean',
         ]);
 
         $validated['is_active'] = (bool) ($request->boolean('is_active'));
+        $validated['priority'] = (int) ($validated['priority'] ?? 0);
 
         $port->update($validated);
         return redirect()->route('admin.ports.index')->with('success', 'Porto atualizado com sucesso!');

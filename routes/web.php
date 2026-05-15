@@ -257,8 +257,9 @@ Route::get('/ports', function () {
 
     $ports = Port::query()
         ->where('is_active', true)
+        ->orderByDesc('priority')
         ->orderBy('name')
-        ->get(['id', 'name', 'url']);
+        ->get(['id', 'name', 'url', 'priority']);
 
     $socialNetworks = SocialNetwork::query()
         ->where('is_active', true)

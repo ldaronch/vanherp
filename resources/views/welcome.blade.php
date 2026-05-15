@@ -285,17 +285,17 @@
                 <div class="max-w-6xl mx-auto px-6 py-4 grid grid-cols-1 md:grid-cols-3 ">
 
                     <div class="items-start gap-3">
-                        <div class="font-semibold w-full text-center md:text-left">Phone {!! $settings->phone ?? '' !!}</div>
-                        <div class="font-semibold w-full text-center md:text-left">Emergency  {!! $settings->emergency_phone ?? '' !!}</div>
+                        <div class="font-semibold w-full text-center md:text-left">Phone: {!! $settings->phone ?? '' !!}</div>
+                        <div class="font-semibold w-full text-center md:text-left">Emergency:  {!! $settings->emergency_phone ?? '' !!}</div>
                     </div>
 
                     <div class="flex items-start gap-3">
-                        <div class="font-semibold w-full text-center">WhatsApp {!! $settings->whatsapp ?? '' !!}</div>
+                        <div class="font-semibold w-full text-center">WhatsApp: {!! $settings->whatsapp ?? '' !!}</div>
                     </div>
 
 
                     <div class="flex items-start gap-3 w-full">
-                        <div class="font-semibold w-full text-center md:text-right">E-mail {{ $settings->email_display ?? '' }}</div>
+                        <div class="font-semibold w-full text-center md:text-right">E-mail: {{ $settings->email_display ?? '' }}</div>
                     </div>
 
                 </div>

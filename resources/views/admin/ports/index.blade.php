@@ -20,6 +20,7 @@
                 <div class="flex-1">
                     <div class="text-lg font-bold text-on-surface">{{ $port->name }}</div>
                     <div class="mt-1 text-sm text-on-surface-variant break-all">{{ $port->url ?? '—' }}</div>
+                    <div class="mt-1 text-xs text-on-surface-variant font-semibold">Prioridade: {{ $port->priority ?? 0 }}</div>
                 </div>
                 <div class="flex items-center gap-3">
                     <form action="{{ route('admin.ports.toggle', $port) }}" method="POST" class="inline-flex items-center">
