@@ -25,14 +25,16 @@
                 <a href="{{ url('/') }}" class="font-black tracking-tight text-slate-900 text-lg">
                     <img alt="Logo" class="h-16 w-auto" src="{{ route('site.logo') }}"/>
                 </a>
-                <nav class="hidden md:flex items-center gap-6">
-                    <ul class="hidden md:flex items-center gap-6">
+                <nav class="hidden md:flex items-center gap-3">
+                    <ul class="hidden md:flex items-center gap-3">
+                        <li><a href="{{ url('/') }}" class="nav-link font-thin text-slate-700 hover:text-slate-900">Home</a></li>
+
                         <li class="relative group">
-                            <a href="{{ url('/#about-us') }}" class="nav-link font-thin text-slate-700 hover:text-slate-900 inline-flex items-center gap-1">
+                            <a href="{{ url('/#about-us') }}" class="nav-link font-thin inline-flex items-center gap-1 px-3 py-2 rounded-xl text-slate-700 hover:bg-[#C5A573] hover:text-white group-hover:bg-[#C5A573] group-hover:text-white transition-colors">
                                 <span>About us</span>
                                 <span class="material-symbols-outlined text-[18px]">expand_more</span>
                             </a>
-                            <div class="absolute left-0 top-full pt-2 hidden group-hover:block">
+                            <div class="absolute left-0 top-[25px] pt-2 hidden group-hover:block">
                                 <div class="min-w-44 rounded-xl bg-[#C5A573] shadow-lg overflow-hidden">
                                     <a href="{{ url('/our-history') }}" class="block px-4 py-3 text-white/90 font-thin hover:bg-black/10 hover:text-white">Our history</a>
                                     <a href="{{ url('/our-services') }}" class="block px-4 py-3 text-white/90 font-thin hover:bg-black/10 hover:text-white">Our services</a>
@@ -101,7 +103,7 @@
                             <div class="font-semibold">Emergency phones</div>
                             <div class="mt-1">
                                 {!! $settings->emergency_phone ?? '' !!}<br/>
-                                {!! $settings->phone ?? '' !!}
+                                {!! $settings->cellphone ?? '' !!}
                             </div>
                         </div>
                     </div>
@@ -123,14 +125,14 @@
             <div class="bg-[#C5A573] text-white scroll-mt-28 py-12" id="contact">
                 <div class="max-w-6xl mx-auto px-6 py-4 grid grid-cols-1 md:grid-cols-3">
                     <div class="items-start gap-3">
-                        <div class="font-semibold w-full text-center md:text-left">Phone {{ $settings->phone ?? '' }}</div>
-                        <div class="font-semibold w-full text-center md:text-left">Emergency {!! $settings->emergency_phone ?? '' !!}</div>
+                        <div class="font-semibold w-full text-center md:text-left">Phone: {{ $settings->phone ?? '' }}</div>
+                        <div class="font-semibold w-full text-center md:text-left">Emergency: {!! $settings->emergency_phone ?? '' !!}</div>
                     </div>
                     <div class="flex items-start gap-3">
-                        <div class="font-semibold w-full text-center">WhatsApp {{ $settings->whatsapp ?? '' }}</div>
+                        <div class="font-semibold w-full text-center">WhatsApp: {{ $settings->whatsapp ?? '' }}</div>
                     </div>
                     <div class="flex items-start gap-3 w-full">
-                        <div class="font-semibold w-full text-center md:text-right">E-mail {{ $settings->email_display ?? '' }}</div>
+                        <div class="font-semibold w-full text-center md:text-right">E-mail: {{ $settings->email_display ?? '' }}</div>
                     </div>
                 </div>
                 <hr class="border-0 h-[2px] bg-white my-3">

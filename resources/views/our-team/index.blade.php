@@ -10,7 +10,7 @@
             <span class="text-slate-700 font-semibold">Our team</span>
         </nav>
 
-        <h1 class="mt-4 inline-block text-4xl md:text-5xl font-black tracking-tight text-slate-900 py-[2px] border-b-2 border-[#C5A573]">Our team</h1>
+        <h1 class="mt-4 inline-block text-4xl md:text-5xl font-black tracking-tight text-slate-900 py-[2px] border-b-2 border-[#C5A573]">OUR TEAM</h1>
 
         <div class="mt-10 space-y-10">
             @forelse($members as $member)

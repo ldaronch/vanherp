@@ -10,21 +10,15 @@
             <span class="text-slate-700 font-semibold">P&amp;I Clubs</span>
         </nav>
 
-        <h1 class="mt-4 inline-block text-4xl md:text-5xl font-black tracking-tight text-slate-900 py-[2px] border-b-2 border-[#C5A573]">P&amp;I Clubs</h1>
-        <p class="mt-4 text-slate-600 leading-relaxed">
-            Seções e itens relacionados.
-        </p>
+        <h1 class="mt-4 inline-block text-4xl md:text-5xl font-black tracking-tight text-slate-900 py-[2px] border-b-2 border-[#C5A573]">P&I CLUBS</h1>
+
 
         <div class="mt-10 space-y-10">
             @forelse($sections as $section)
                 <section class="bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
                     <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">{{ $section->title }}</h2>
 
-                    @if(!empty($section->text))
-                        <div class="mt-4 text-slate-600 leading-relaxed whitespace-pre-line">
-                            {{ $section->text }}
-                        </div>
-                    @endif
+
 
                     @if($section->links->count())
                         <div class="mt-6">
@@ -42,6 +36,12 @@
                                     </li>
                                 @endforeach
                             </ul>
+                        </div>
+                    @endif
+                    
+                    @if(!empty($section->text))
+                        <div class="mt-4 text-sm text-[#C5A573] leading-relaxed ">
+                            {{ $section->text }}
                         </div>
                     @endif
                 </section>

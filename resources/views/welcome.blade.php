@@ -24,10 +24,11 @@
                 <a href="{{ url('/') }}" class="font-black tracking-tight text-slate-900 text-lg">
                         <img alt="Logo" class="h-16 w-auto" src="{{ route('site.logo') }}"/>    
                 </a>
-                <nav class="hidden md:flex items-center gap-6">
-                    <ul class="hidden md:flex items-center gap-6">
+                <nav class="hidden md:flex items-center gap-4">
+                    <ul class="hidden md:flex items-center gap-4">
+                        <li><a href="{{ url('/') }}" class="nav-link font-thin text-slate-700 hover:text-slate-900">Home</a></li>
                         <li class="relative group">
-                            <a href="#about-us" data-nav="about-us" class="nav-link font-thin text-slate-700 hover:text-slate-900 inline-flex items-center gap-1">
+                            <a href="#about-us" data-nav="about-us" class="nav-link font-thin inline-flex items-center gap-1 px-3 py-2 rounded-xl text-slate-700 hover:bg-[#C5A573] hover:text-white group-hover:bg-[#C5A573] group-hover:text-white transition-colors">
                                 <span>About us</span>
                                 <span class="material-symbols-outlined text-[18px]">expand_more</span>
                             </a>
@@ -167,13 +168,13 @@
                 </div>
             </div>
 
-            <section class="py-16 bg-white border-t border-slate-100 scroll-mt-28" id="home-text">
+            <section class="pt-16 bg-white border-t border-slate-100 scroll-mt-28" id="home-text">
                 <div class="max-w-6xl mx-auto px-6  text-center">
                     @if(isset($homeText) && !empty($homeText->title))
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">{{ $homeText->title }}</h2>
+                        <h2 class="text-3xl md:text-4xl px-3 font-bold tracking-tight text-slate-900 uppercase ">{{ $homeText->title }}</h2>
                     @endif
                     @if(isset($homeText) && !empty($homeText->text))
-                        <div class="mt-5 text-slate-700 text-lg leading-relaxed whitespace-pre-line text-center">{{ $homeText->text }}</div>
+                        <div class="mt-5 text-slate-700 py-4 text-lg leading-relaxed whitespace-pre-line text-center">{{ $homeText->text }}</div>
                     @endif
                     @if(isset($homeText) && !empty($homeText->url))
                         <div class="mt-8">
@@ -186,7 +187,7 @@
 
                 <div class="mt-12 w-full">
                     <div class="relative overflow-hidden">
-                        <div class="relative w-full h-[200px] md:h-[660px]">
+                        <div class="relative w-full h-[200px] md:h-[600px]">
                             @forelse(($portsBanners ?? collect())->filter(fn($p) => !empty($p->image)) as $index => $banner)
                                 <div class="port-slide absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out {{ $index === 0 ? 'opacity-100' : '' }}" data-port-slide="{{ $index }}">
                                     @if(!empty($banner->url))
@@ -227,7 +228,7 @@
             <section class="py-16 border-t border-slate-100 scroll-mt-28" id="news">
                 <div class="w-[90%] mx-auto px-6">
                     <div class="flex items-end justify-center text-center">
-                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">News</h2>
+                        <h2 class="text-3xl md:text-4xl px-3 font-bold tracking-tight text-slate-900">NEWS</h2>
                     </div>
 
                     <div class="relative mt-8">
@@ -261,9 +262,8 @@
                                         @endif
                                         <div class="mt-4">
                                             <div class="flex justify-end">
-                                                <a href="{{ route('circulars-guidelines.index') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-[#29344D] hover:text-[#C5A573] transition-colors">
-                                                    <span>Read more</span>
-                                                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                                                <a href="{{ route('circulars-guidelines.index') }}" class="inline-flex items-center justify-center px-4 py-1 rounded-full border border-[#C5A573] text-[#29344D] font-semibold hover:bg-[#C5A573] hover:text-white transition-colors" rel="noopener">
+                                                    Read more
                                                 </a>
                                             </div>
                                         </div>

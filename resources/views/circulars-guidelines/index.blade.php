@@ -10,7 +10,7 @@
             <span class="text-slate-700 font-semibold">Circulars &amp; Guidelines</span>
         </nav>
 
-        <h1 class="mt-4 inline-block text-4xl md:text-5xl font-black tracking-tight text-slate-900 py-2 border-b-4 border-[#C5A573]">Circulars &amp; Guidelines</h1>
+        <h1 class="mt-4 inline-block text-4xl md:text-5xl font-black tracking-tight text-slate-900 py-2 border-b-4 border-[#C5A573]">CIRCULARS &amp; GUIDELINES</h1>
 
         <div class="mt-10 space-y-10">
             @forelse($sections as $section)
@@ -37,7 +37,8 @@
                     @endif
 
                     @if($section->show_note && !empty($section->note))
-                        <div class="mt-8 text-sm text-slate-600 leading-relaxed whitespace-pre-line">
+                        <div class="mt-4 text-sm text-[#C5A573] leading-relaxed ">
+
                             {{ $section->note }}
                         </div>
                     @endif

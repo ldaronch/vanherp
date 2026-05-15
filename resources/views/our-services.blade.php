@@ -10,9 +10,9 @@
             <span class="text-slate-700 font-semibold">Our services</span>
         </nav>
 
-        <h1 class="mt-4 inline-block text-4xl md:text-5xl font-black tracking-tight text-slate-900 py-[2px] border-b-2 border-[#C5A573]">{{ $page->title ?? 'Our services' }}</h1>
+        <h1 class="mt-4 inline-block text-4xl md:text-5xl font-black tracking-tight text-slate-900 py-[2px] border-b-2 border-[#C5A573]">{{ $page->title ?? 'OUR SERVICES' }}</h1>
         <div class="mt-6 text-slate-600 leading-relaxed whitespace-pre-line">
-            {{ $page->text ?? 'Conteúdo em construção.' }}
+            {{ $page->text ?? '' }}
         </div>
 
         @php

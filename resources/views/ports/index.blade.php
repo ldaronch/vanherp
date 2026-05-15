@@ -10,7 +10,7 @@
             <span class="text-slate-700 font-semibold">Ports</span>
         </nav>
 
-        <h1 class="mt-4 inline-block text-4xl md:text-5xl font-black tracking-tight text-slate-900 py-[2px] border-b-2 border-[#C5A573]">Ports</h1>
+        <h1 class="mt-4 inline-block text-4xl md:text-5xl font-black tracking-tight text-slate-900 py-[2px] border-b-2 border-[#C5A573]">PORTS</h1>
 
         <div class="mt-10 bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
             @forelse($ports as $port)
@@ -30,9 +30,14 @@
                 @if($loop->last)
                     </ul>
                 @endif
+                
             @empty
                 <div class="text-slate-500">Nenhum porto ativo cadastrado.</div>
             @endforelse
+            <div class="mt-4 text-sm text-[#C5A573] leading-relaxed ">
+                NOTE: The links above are maintained by third parties and are hereby included for convenience only.<br>
+                We can not endorse or be responsible for the contents of such websites or any consequences of the use thereof.
+            </div>
         </div>
 
         <div id="map" class="mt-10 flex items-center justify-center">
